@@ -3,6 +3,7 @@ import "./style/reset.css";
 import Header from "./components/Header";
 import SlideShow from './Pages/Home/SlideShow'
 import ListFilm from './components/ListFilm'
+import HotFilm from './components/HotFilm'
 import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
@@ -21,7 +22,7 @@ function App() {
   }, [])
   return (
     <Router>
-      
+     
     </Router>
   );
 }
