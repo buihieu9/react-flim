@@ -6,22 +6,29 @@ function SlideShow(props) {
     let [count, setCount] = useState(0);
     let runSlideShowRef = useRef();
     let mouseOverXRef = useRef(0);
-
+    
     useEffect(() => {
-        slideShowRef.current.addEventListener('touchstart', (e)=>{
-            mouseOverXRef = e.touches[0].clientX
-        })
-        slideShowRef.current.addEventListener('touchend',(e)=>{
-            if(mouseOverXRef > e.changedTouches[0].clientX
-                 && mouseOverXRef - e.changedTouches[0].clientX > 200) {
-                    if(count < slides.length-1) setCount(count+1)  
-                 }
-            else if(mouseOverXRef < e.changedTouches[0].clientX
-                && e.changedTouches[0].clientX - mouseOverXRef > 200) {
-                    if(count > 0) setCount(count-1)
-                }
-        })
-        runSlideShowRef = setInterval(() => {
+        function handleStart(e){
+            mouseOverXRef.current = e.touches[0].clientX
+        }
+        function handleEnd(e){
+            if (mouseOverXRef.current > e.changedTouches[0].clientX
+                && mouseOverXRef.current - e.changedTouches[0].clientX > 200) {
+                console.log('right');
+                if (count < slides.length - 1) setCount(count + 1);
+                else if (count >= slides.length - 1) setCount(0)
+            }
+            else if (mouseOverXRef.current < e.changedTouches[0].clientX
+                && e.changedTouches[0].clientX - mouseOverXRef.current > 200) {
+                console.log('left');
+                if (count > 0) setCount(count - 1)
+                else if (count <= 0) setCount(slides.length - 1)
+            }
+        }
+        let slide = slideShowRef.current
+        slide.addEventListener('touchstart',handleStart,{passive: true})
+        slide.addEventListener('touchend',handleEnd)
+        runSlideShowRef.current = setInterval(() => {
             if (count >= slides.length - 1) {
                 setCount(0)
             }
@@ -30,9 +37,11 @@ function SlideShow(props) {
             }
         }, 7000)
         return () => {
-            clearInterval(runSlideShowRef)
+                slide.removeEventListener('touchstart',handleStart,{passive:true})
+                slide.removeEventListener('touchend',handleEnd)
+                clearInterval(runSlideShowRef.current)
         }
-    },[count])
+    },[count,slides.length])
 
     const changeSlideImg = (index) => {
         slideShowRef.current.style.transform = `translateX(-${index * 100}%)`;
