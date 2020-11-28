@@ -33,13 +33,13 @@ function App() {
         <Route path="/country">
           <FilterFilm />
         </Route>
-        <Route path="/hot-film">
+        <Route path="/hot-films">
           <FilterFilm />
         </Route>
-        <Route path="/new-film">
+        <Route path="/new-films">
           <FilterFilm/>
         </Route>
-        <Route path="/movie-shown-in-theater">
+        <Route path="/movies-shown-in-theater">
           <FilterFilm/>
         </Route>
         <Route path="/watch-film">
