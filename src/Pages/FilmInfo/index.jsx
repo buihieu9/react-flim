@@ -1,9 +1,16 @@
 import React from 'react'
 
+import './style.scss'
+
 function FilmInfo() {
     return (
-        <div>
-            Film Info
+        <div className="filmInfo">
+            <div className="filmInfo__left">
+                
+            </div>
+            <div className="filmInfo__right">
+                right
+            </div>
         </div>
     )
 }
