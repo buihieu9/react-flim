@@ -1,12 +1,16 @@
+import { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import NavBar from "./components/Header";
+import Home from './Pages/Home';
+import FilterFilm from './Pages/FilterFilm';
+import WatchFilm from './Pages/WatchFilm';
+import FilmInfo from './Pages/FilmInfo'
+
 import "./App.css";
 import "./style/reset.css";
-import NavBar from "./components/Header";
-import Header from "./components/Header";
-import SlideShow from "./Pages/Home/SlideShow";
-import ListFilm from "./Pages/Home/ListFilmContainer";
-import HotFilm from "./components/HotFilm";
-import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+
+
 
 function App() {
   const [data, setData] = useState([]);
@@ -20,9 +24,35 @@ function App() {
       });
   }, []);
   return (
-    <div>
+   <Router>
       <NavBar />
-    </div>
+      <Switch>
+        <Route path="/genres">
+          <FilterFilm/>
+        </Route>
+        <Route path="/country">
+          <FilterFilm />
+        </Route>
+        <Route path="/hot-film">
+          <FilterFilm />
+        </Route>
+        <Route path="/new-film">
+          <FilterFilm/>
+        </Route>
+        <Route path="/movie-shown-in-theater">
+          <FilterFilm/>
+        </Route>
+        <Route path="/watch-film">
+          <WatchFilm/>
+        </Route>
+        <Route path="/film-info">
+          <FilmInfo/>
+        </Route>
+        <Route path="/" >
+          <Home/>
+        </Route>
+      </Switch>
+   </Router>
   );
 }
 
