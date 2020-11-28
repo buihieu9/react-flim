@@ -9,7 +9,7 @@ function HotFilm(props) {
             <ul>
                 {
                     films.map((item)=>
-                    <li>
+                    <li key={item.id}>
                         <a>
                             <img src={item.image}/>
                             <div className="topFilm__item__info">

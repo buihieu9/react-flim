@@ -12,9 +12,20 @@
 .app__container__right{
     width: 20%;
 }
+.app__container__right{
+    display: none;
+}
+@media only screen and (min-width: 1200px){
+    .app__container__right{
+        display: block;
+    }
+    .app__container{
+        max-width: 1170px;
+    }
+}
 @media only screen and (min-width: 1400px){
     .app__container{
         max-width: 1340px;
-
     }
 }
+
