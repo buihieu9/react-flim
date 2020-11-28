@@ -28,8 +28,8 @@ function App() {
     <Router>
       <div className="app">
         <NavBar />
-        <div className="container">
-          <div className="container__left">
+        <div className="app__container">
+          <div className="app__container__left">
             <Switch>
               <Route path="/genres">
                 <FilterFilm />
@@ -57,7 +57,7 @@ function App() {
               </Route>
             </Switch>
           </div>
-          <div className="container__right">
+          <div className="app__container__right">
             <LeftComponent/>
           </div>
         </div>
