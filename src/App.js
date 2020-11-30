@@ -5,7 +5,6 @@ import NavBar from "./components/Header";
 import Home from './Pages/Home';
 import FilterFilm from './Pages/FilterFilm';
 import WatchFilm from './Pages/WatchFilm';
-import FilmInfo from './Pages/FilmInfo'
 import LeftComponent from './components/LeftComponent'
 
 import "./App.css";
@@ -17,7 +16,7 @@ function App() {
   const [data, setData] = useState([]);
   const [films, setFilms] = useState([]);
   useEffect(() => {
-    fetch("https://5f8a739718c33c0016b31771.mockapi.io/Film")
+    fetch("http://localhost:5001/film")
       .then((res) => res.json())
       .then((res) => {
         setData(res);
@@ -46,11 +45,8 @@ function App() {
               <Route path="/movies-shown-in-theater">
                 <FilterFilm />
               </Route>
-              <Route path="/watch-film">
+              <Route path="/watch-film/:id">
                 <WatchFilm />
-              </Route>
-              <Route path="/film-info">
-                <FilmInfo />
               </Route>
               <Route path="/" >
                 <Home />
