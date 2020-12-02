@@ -3,7 +3,7 @@ import './style.scss'
 function Loadding() {
     return (
         <div className="loadding">
-            <i class="fas fa-spinner"></i>
+            <i className="fas fa-spinner"></i>
         </div>
     )
 }

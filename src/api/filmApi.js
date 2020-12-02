@@ -1,13 +1,13 @@
 const { default: axiosClient } = require("./axiosClient")
+const filmApi = {}
 
-
-const getAll = (params) => {
-    const url = '/films'
-    return axiosClient.get(url, params)
+filmApi.getAll = async (params) => {
+    const url = '/Film'
+    return await axiosClient.get(url, params)
 }
-const getOne = (id) => {
-    const url= `/film/${id}`
-    return axiosClient.get(url)
+filmApi.getOne = async (id) => {
+    const url= `/Film?id=${id}`
+    return await axiosClient.get(url)
 }
 
-export { getAll, getOne}
+export default filmApi

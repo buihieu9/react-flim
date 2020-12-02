@@ -3,41 +3,42 @@ import { useParams } from 'react-router-dom'
 
 import Comments from './comments'
 import Loadding from '../../components/Loadding'
+import FilmApi from '../../api/filmApi'
 import './style.scss'
 
 function WatchFilm() {
     const [isOpenFilmInfo, setIsOpenFilmInfo] = useState(true)
     const [isOpenFilm, setIsOpenFilm] = useState(false)
     const [film, setFilm] = useState(null)
-    const [filmStar,setFilmStar] = useState(null)
+    const [filmStar, setFilmStar] = useState(null)
     const { id } = useParams()
     const openInfoRef = useRef()
     const InfoContainerRef = useRef()
     useEffect(() => {
-        try {
-            fetch('https://5f8a739718c33c0016b31771.mockapi.io/Film')
-                .then(data => data.json())
-                .then(res => {
-                    console.log(res.find((item)=>item.id === parseInt(id)))
-                    setFilm(res.find((item)=>item.id===parseInt(id)))
-                })
-        }
-        catch (err) {
-            if (err) alert(err)
-        }
-        finally {
-            if(film){
-                let vote=[]
-                for(let i=0;i<10;i++){
-                    if(i<parseInt(film.voted)) vote.push(<i style={{
-                        color:"#dbb043"
-                    }} className="fas fa-star"></i>)
-                    else vote.push(<i className="fas fa-star"></i>)
-                }
-                setFilmStar(vote)
+        async function getFilm() {
+            try {
+                let res = await FilmApi.getOne(id)
+                setFilm(res.data[0])
+            }
+            catch (err) {
+                if (err) alert(err)
             }
         }
-    }, [])
+        getFilm()
+    }, [id])
+
+    useEffect(() => {
+        if (film) {
+            let vote = []
+            for (let i = 0; i < 10; i++) {
+                if (i < parseInt(film.voted)) vote.push(<i style={{
+                    color: "#dbb043"
+                }} className="fas fa-star"></i>)
+                else vote.push(<i className="fas fa-star"></i>)
+            }
+            setFilmStar(vote)
+        }
+    }, [film])
     return (
         <>
             {
@@ -46,7 +47,7 @@ function WatchFilm() {
                         !isOpenFilm ?
                             <div className="watchFilm__video">
                                 <img src={film.largeImg} />
-                                <div onClick={()=>{
+                                <div onClick={() => {
                                     setIsOpenFilm(true)
                                 }} className="watchFilm__video__overlay">
                                     <div className="watchFilm__video__overlay__playIcon">
@@ -59,7 +60,7 @@ function WatchFilm() {
                                     </div>
                                 </div>
                             </div>
-                            :<div className="watchFilm__video">
+                            : <div className="watchFilm__video">
                                 <video width="100%" autoPlay height="100%" controls>
                                     <source type="video/mp4" src={film.videoUrl.mainlink} />
                                 </video>
@@ -78,7 +79,7 @@ function WatchFilm() {
                             <p>Voted: {film.voted}</p>
                             <div className="watchFilm__vote__star">
                                 {
-                                  filmStar?filmStar.map((item,index)=><div key={index}>{item}</div>):''
+                                    filmStar ? filmStar.map((item, index) => <div key={index}>{item}</div>) : ''
                                 }
                             </div>
                             <div>
@@ -126,7 +127,7 @@ function WatchFilm() {
                                     </ul>
                                 </li>
                                 <li className="watchFilm__filmInfo__bottom__description">{film.description}</li>
-                                <li>Genres: {film.category.map((item)=><span>{item}  </span>)}</li>
+                                <li>Genres: {film.category.map((item, index) => <span key={index}>{item}</span>)}</li>
                                 <li>Country: {film.country}</li>
                             </ul>
                         </div>
@@ -139,7 +140,7 @@ function WatchFilm() {
                     <div className="watchFilm__comments">
                         <Comments comments={film.comments} />
                     </div>
-                </div > : <Loadding/>
+                </div > : <Loadding />
             }
         </>
     )
