@@ -2,7 +2,6 @@ import React from "react";
 import "./style.scss";
 function HotFilm(props) {
   const { films, title } = props;
-  console.log(films);
   return (
     <div className="topFilm">
       <p className="topFilm__title">{title}</p>

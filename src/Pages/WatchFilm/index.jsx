@@ -15,10 +15,10 @@ function WatchFilm() {
     const InfoContainerRef = useRef()
     useEffect(() => {
         try {
-            fetch('http://localhost:5001/film2')
+            fetch('https://5f8a739718c33c0016b31771.mockapi.io/Film')
                 .then(data => data.json())
                 .then(res => {
-                    console.log(res.find((item)=>item.id===parseInt(id)))
+                    console.log(res.find((item)=>item.id === parseInt(id)))
                     setFilm(res.find((item)=>item.id===parseInt(id)))
                 })
         }
@@ -39,7 +39,6 @@ function WatchFilm() {
         }
     }, [])
     return (
-        console.log(filmStar),
         <>
             {
                 film ? <div className="watchFilm">

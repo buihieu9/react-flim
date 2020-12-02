@@ -60,7 +60,7 @@ function App() {
             <Route path="/movies-shown-in-theater">
               <FilterFilm />
             </Route>
-            <Route path="/watch-film">
+            <Route path="/watch-film/:id">
               <WatchFilm />
             </Route>
             <Route exact path="/">
