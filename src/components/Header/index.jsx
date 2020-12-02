@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Switch, Route, Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "../../style/reset.css";
 import "./style.scss";
 function NavBar(props) {
@@ -37,33 +37,33 @@ function NavBar(props) {
                 <input type="checkbox" id="checkbox1" />
                 <ul className="nav__smenu">
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="#">
+                    <Link className="smenu__link" to="/genres/action">
                       Phim Hành Động
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="#">
+                    <Link className="smenu__link" to="/genres/horror">
                       Phim King Dị
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="#">
-                      Phim Võ Thuật
+                    <Link className="smenu__link" to="/genres/science-fiction">
+                      Phim Khoa Học Viễn Tưởng
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="#">
+                    <Link className="smenu__link" to="/genres/comedy">
                       Phim Hài
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="#">
+                    <Link className="smenu__link" to="/genres/drama">
                       Phim Tâm Lý
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="#">
-                      Phim Gia Đình
+                    <Link className="smenu__link" to="/genres/cartoon">
+                      Phim Hoạt Hình
                     </Link>
                   </li>
                 </ul>
@@ -75,54 +75,54 @@ function NavBar(props) {
                 <input type="checkbox" id="checkbox2" />
                 <ul className="nav__smenu">
                   <li className="smenu__item">
-                    <Link to="#" className="smenu__link">
+                    <Link to="/country/vietnam" className="smenu__link">
                       Phim Việt Nam
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="#" className="smenu__link">
+                    <Link to="/country/united-states" className="smenu__link">
                       Phim Mỹ
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="#" className="smenu__link">
+                    <Link to="/country/china" className="smenu__link">
                       Phim Trung Quốc
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="#" className="smenu__link">
+                    <Link to="/country/korea" className="smenu__link">
                       Phim Hàn Quốc
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="#" className="smenu__link">
+                    <Link to="/country/japan" className="smenu__link">
                       Phim Nhật Bản
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="#" className="smenu__link">
+                    <Link to="/country/hongkong" className="smenu__link">
                       Phim Hong Kong
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="#" className="smenu__link">
-                      Phim ÂU Mỹ
+                    <Link to="/country/europe" className="smenu__link">
+                      Phim Âu Mỹ
                     </Link>
                   </li>
                 </ul>
               </li>
               <li className="nav__item">
-                <NavLink to="#" className="nav__link">
+                <NavLink to="/hot-films" className="nav__link">
                   Phim Hot
                 </NavLink>
               </li>
               <li className="nav__item">
-                <NavLink to="#" className="nav__link">
+                <NavLink to="/new-films" className="nav__link">
                   Phim Mới
                 </NavLink>
               </li>
               <li className="nav__item">
-                <NavLink to="#" className="nav__link">
+                <NavLink to="/movies-shown-in-theater" className="nav__link">
                   Phim Chiếu Rạp
                 </NavLink>
               </li>
@@ -139,7 +139,7 @@ function NavBar(props) {
                 </div>
               </div>
               <div className="nav__login">
-                <NavLink to="/">Login</NavLink>
+                <NavLink to="/auth/sign-in">Login</NavLink>
               </div>
             </div>
           </div>

@@ -1,16 +1,13 @@
 import React from "react";
-import SlideShow from "./SlideShow/index";
-import ListFilm from "./ListFilmContainer/index";
-import "./style.scss";
+import ListFilmContainer from "./ListFilmContainer";
+import SlideShow from "./SlideShow";
 
 function Home(props) {
   const { films } = props;
   return (
-    <div className="container Home">
-      <div className="col-slide">
-        <SlideShow slides={films} />
-      </div>
-      {/* <ListFilm /> */}
+    <div>
+      <SlideShow slides={films} />
+      <ListFilmContainer />
     </div>
   );
 }
