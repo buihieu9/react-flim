@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import NavBar from "./components/Header";
 import Home from "./Pages/Home";
 import FilterFilm from "./Pages/FilterFilm";
 import WatchFilm from "./Pages/WatchFilm";
-import FilmInfo from "./Pages/FilmInfo";
+// import FilmInfo from "./Pages/FilmInfo";
 import LeftComponent from "./components/LeftComponent";
 import Auth from "./Pages/Auth/index";
 import { useLocation } from "react-router-dom";
@@ -62,9 +62,6 @@ function App() {
             </Route>
             <Route path="/watch-film">
               <WatchFilm />
-            </Route>
-            <Route path="/film-info">
-              <FilmInfo />
             </Route>
             <Route exact path="/">
               <Home films={films} />

@@ -31,9 +31,14 @@ body {
     .app__container__right{
         display: block;
     }
+    .app__container__left{
+        margin-right: 1%;
+        width: 75%;
+    }
     .app__container{
         max-width: 1170px;
     }
+
 }
 @media only screen and (min-width: 1400px){
     .app__container{
