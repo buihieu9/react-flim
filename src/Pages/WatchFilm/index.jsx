@@ -29,7 +29,7 @@ function WatchFilm() {
             if(film){
                 let vote=[]
                 for(let i=0;i<10;i++){
-                    if(i<film.voted) vote.push(<i style={{
+                    if(i<parseInt(film.voted)) vote.push(<i style={{
                         color:"#dbb043"
                     }} className="fas fa-star"></i>)
                     else vote.push(<i className="fas fa-star"></i>)
@@ -78,7 +78,7 @@ function WatchFilm() {
                             <p>Voted: {film.voted}</p>
                             <div className="watchFilm__vote__star">
                                 {
-                                  filmStar?filmStar.map((item)=>item):''
+                                  filmStar?filmStar.map((item,index)=><div key={index}>{item}</div>):''
                                 }
                             </div>
                             <div>
