@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Switch, Route, Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "../../style/reset.css";
 import "./style.scss";
 function NavBar(props) {
@@ -106,7 +106,7 @@ function NavBar(props) {
                   </li>
                   <li className="smenu__item">
                     <Link to="/country/europe" className="smenu__link">
-                      Phim ÂU Mỹ
+                      Phim Âu Mỹ
                     </Link>
                   </li>
                 </ul>
@@ -139,7 +139,7 @@ function NavBar(props) {
                 </div>
               </div>
               <div className="nav__login">
-                <NavLink to="/">Login</NavLink>
+                <NavLink to="/auth/sign-in">Login</NavLink>
               </div>
             </div>
           </div>

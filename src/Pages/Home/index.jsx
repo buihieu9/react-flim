@@ -1,13 +1,15 @@
-import React from 'react'
+import React from "react";
+import ListFilmContainer from "./ListFilmContainer";
+import SlideShow from "./SlideShow";
 
-function Home() {
-    return (
-        <div>
-            <h1>
-                Home
-            </h1>
-        </div>
-    )
+function Home(props) {
+  const { films } = props;
+  return (
+    <div>
+      <SlideShow slides={films} />
+      <ListFilmContainer />
+    </div>
+  );
 }
 
-export default Home
+export default Home;

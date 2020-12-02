@@ -1,40 +1,33 @@
+body {
+    line-height: 1.4;
+    font-size: 1.4rem;
+}
+
 .app{
     background-color: #101010;
+    position: relative;
 }
 .app__container{
-    padding-top: 20px;
+    /* width: 1200px; */
+    max-width: 1200px;
+    /* padding: 0 1.6rem; */
+    /* padding-top: 20px; */
     margin: auto;
     display: flex;
 }
 .app__container__left{
-    width: 100%;
+    width: 75%;
+
 }
 .app__container__right{
     width: 25%;
+    margin-left: 24px;
 }
 .app__container__right{
     display: none;
 }
 
-@media only screen and (min-width: 768px){
-    .app__container{
-        max-width: max-content;
-    }
-}
-
-@media only screen and (min-width: 850px){
-    .app__container{
-        max-width: 800px;
-    }
-}
-
-@media only screen and (min-width: 990px){
-    .app__container{
-        max-width: 900px;
-    }
-}
-
-@media only screen and (min-width: 1200px){
+/* @media only screen and (min-width: 1200px){
     .app__container__right{
         display: block;
     }
@@ -45,11 +38,50 @@
     .app__container{
         max-width: 1170px;
     }
-    
+
 }
 @media only screen and (min-width: 1400px){
     .app__container{
         max-width: 1340px;
     }
-}
+} */
 
+ /* mobile */
+ @media (max-width: 739px){
+
+     .app__container__left{
+        width: 100%;
+
+    }
+    .app__container {
+        display: block;
+        /* margin: 0 -1.6rem; */
+    }
+ }
+
+ /* PC medium resolution > */
+ @media (min-width: 1113px) {
+    .app__container__right{
+        display: block;
+
+    }
+ }
+
+ /* Tablet - PC low resolution */
+ @media (min-width: 740px) and (max-width: 1023px) {
+    .app__container__left{
+        width: 100%;
+    }
+    .app__container {
+        display: block
+    }
+ }
+
+
+ /* > PC low resolution */
+ @media (min-width: 1024px) and (max-width: 1239px) {
+
+    .app__container__right{
+        display: block;
+    }
+ }

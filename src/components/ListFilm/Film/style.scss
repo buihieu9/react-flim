@@ -4,7 +4,7 @@
     justify-content: center;
     align-content: center;
     a{
-        width: 97%;
+        width: 94%;
         text-decoration: none;
         padding-bottom: 162%;
         position: relative;
@@ -85,7 +85,7 @@
 .listFilm__item:hover a .a123 .listFilm__item__info p{
     color: rgba(255,255,255);
 }
-@media only screen and (max-width: 426px){
+@media only screen and (max-width: 740px){
     .listFilm__item{
         width: 50%;
         a{
