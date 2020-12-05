@@ -25,7 +25,7 @@ function Film(props) {
             </div>
           </div>
           <div className="listFilm__item__info">
-            <p>{film.viName}</p>
+            <p>{film.vieName}</p>
             <p>{film.engName}</p>
           </div>
         </div>

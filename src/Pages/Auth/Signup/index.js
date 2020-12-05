@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "../../../components/Input/index";
 import { Link } from "react-router-dom";
+import userApi from '../../../api/userApi'
 import "../style.scss";
 
 function Signup(props) {
@@ -10,9 +11,9 @@ function Signup(props) {
     password: "",
     confirmPassword: "",
   });
-
+  const [successMessage,setSuccessMessage]= useState(null)
   const [err, setErr] = useState({
-    isErr: true,
+    isErr: false,
     nameErr: "",
   });
   const handleChange = (e) => {
@@ -22,65 +23,93 @@ function Signup(props) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setSuccessMessage(null)
+    validate('email',true)
+    validate('password',true)
+    validate('confirmPassword',true)
+    if(!err.isErr){
+      try{
+          await userApi.signUp({
+          userName: value.userName,
+          password: value.password,
+          email:value.email
+        })
+        setSuccessMessage("You have registered successfully")
+      }
+      catch(err){
+        setErr({
+          isErr:true,
+          nameErr:err.response.data
+        })
+      }    
+    }
   };
 
-  const checkPassword = (valueInput, name) => {
-    setErr({
-      ...err,
-      isErr: true,
-      nameErr: "",
-    });
+  const validate = (name,submit=false) => {
+    if(!submit){
+      setErr({
+        ...err,
+        isErr: false,
+        nameErr: "",
+      });
+    }
 
     if (name === "email") {
       let checkRegex = /^[a-z][a-z0-9_]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/gim;
       if (!checkRegex.test(value.email)) {
         setErr({
           ...err,
-          isErr: false,
+          isErr: true,
           nameErr: "cú pháp email không hợp lệ",
         });
       }
       return;
     }
-
-    if (valueInput.length < 6) {
-      setErr({
-        ...err,
-        isErr: false,
-        nameErr: "password quá ngắn",
-      });
-      return;
+    else if (name === "password") {
+      if (value.password.length < 6||value.password.trim() === "") {
+        setErr({
+          ...err,
+          isErr: true,
+          nameErr: "password quá ngắn",
+        });
+        return;
+      }
     }
-    if (name === "confirmPassword") {
-      setErr({
-        ...err,
-        isErr: valueInput === value.password,
-        nameErr: "confirmPassword không trùng nhau",
-      });
-    }
-  };
-
-  const handle = (e) => {
-    if (e.target.name === "password" || e.target.name === "confirmPassword") {
-      checkPassword(e.target.value, e.target.name);
-    }
-    if (e.target.name === "email") {
-      checkPassword(e.target.value, e.target.name);
+     else if (name === "confirmPassword") {
+      if( value.confirmPassword !== value.password){
+        setErr({
+          ...err,
+          isErr:true,
+          nameErr: "confirmPassword không trùng nhau",
+        });
+        return
+      }
     }
   };
+  const handle = (e)=>{
+      validate(e.target.name)
+  }
+  useEffect(() => {
+    console.log(err)
+  }, [err])
   return (
     <div className="container__auth">
       <div className="logo">
         <img src="https://bapngoz.com/logo.png" alt="logo" />
       </div>
 
-      {!err.isErr && (
+      {err.isErr && (
         <div className="err">
           <p>{err.nameErr}</p>
         </div>
       )}
+      {
+        successMessage&&<div className="success">
+          <p>{successMessage}</p>
+        </div>
+      }
       <form onSubmit={handleSubmit}>
         <div className="container-input">
           <Input

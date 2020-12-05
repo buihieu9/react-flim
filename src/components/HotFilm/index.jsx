@@ -11,7 +11,7 @@ function HotFilm(props) {
             <a>
               <img src={item.image} alt="img" />
               <div className="topFilm__item__info">
-                <p>{item.viName}</p>
+                <p>{item.vieName}</p>
                 <p>{item.engName}</p>
                 <div className="topFilm__item__info__vote">
                   <i className="fas fa-star"></i>

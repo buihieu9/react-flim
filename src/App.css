@@ -6,10 +6,11 @@ body {
 .app{
     background-color: #101010;
     position: relative;
+    min-height: 100vh;
 }
 .app__container{
     /* width: 1200px; */
-    max-width: 1200px;
+    max-width: 1300px;
     /* padding: 0 1.6rem; */
     /* padding-top: 20px; */
     margin: auto;
@@ -25,6 +26,7 @@ body {
 }
 .app__container__right{
     display: none;
+    
 }
 
 /* @media only screen and (min-width: 1200px){
@@ -47,8 +49,7 @@ body {
 } */
 
  /* mobile */
- @media (max-width: 739px){
-
+ @media (max-width: 740px){
      .app__container__left{
         width: 100%;
 

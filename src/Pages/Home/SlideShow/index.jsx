@@ -13,14 +13,16 @@ function SlideShow(props) {
     function handleEnd(e) {
       if (
         mouseOverXRef.current > e.changedTouches[0].clientX &&
-        mouseOverXRef.current - e.changedTouches[0].clientX > 200
+        mouseOverXRef.current - e.changedTouches[0].clientX > 50
       ) {
         console.log("right");
         if (count < slides.length - 1) setCount(count + 1);
         else if (count >= slides.length - 1) setCount(0);
-      } else if (
+      } 
+
+      else if (
         mouseOverXRef.current < e.changedTouches[0].clientX &&
-        e.changedTouches[0].clientX - mouseOverXRef.current > 200
+        e.changedTouches[0].clientX - mouseOverXRef.current > 50
       ) {
         console.log("left");
         if (count > 0) setCount(count - 1);
@@ -68,20 +70,35 @@ function SlideShow(props) {
         })}
       </div>
       <div className="home-slideShow-dotButton">
+        <div onClick={()=>{
+          if(count>0){
+            changeSlideImg(count-1)
+          }
+        }} className="home-slideShow-arrow">
+          <i className="fas fa-chevron-left"></i>
+        </div>
         <ul>
           {slides.map((item, index) => {
             return (
               <li className={index} key={item.id}>
-                <button
+                <span
                   style={{
-                    backgroundColor: count === index ? "red" : "#faf1f147",
+                    transform: count === index&&'scale(1.1)',
+                    backgroundColor: count === index ? "rgba(255,255,255,0.9)" : "transparent",
                   }}
                   onClick={() => changeSlideImg(index)}
-                ></button>
+                ></span>
               </li>
             );
           })}
         </ul>
+        <div onClick={()=>{
+          if(count<slides.length-1){
+            changeSlideImg(count+1)
+          }
+        }} className="home-slideShow-arrow">
+          <i className="fas fa-chevron-right"></i>
+        </div>
       </div>
     </div>
   );

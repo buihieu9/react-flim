@@ -57,8 +57,23 @@
         font-size: 2rem;
     }
     &__engName{
+        display: flex;
+        justify-content: space-between;
         font-weight: 400;
         opacity: 0.8;
+        &__error{
+            display: flex;
+            font-size: 15px;
+            align-items: center;
+            color: #da4d4d;
+            cursor: pointer;
+            i{
+                margin: 0 5px 5px 0;
+            }
+            p{
+                font-weight: 700;
+            }
+        }
     }
     &__vieName{
         font-weight: 700;
@@ -91,6 +106,19 @@
             align-items: center;
             i{
                 padding: 0.1rem;
+            }
+        }
+    }
+    &__yourVote{
+        font-size: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        &__item{
+            .yellow{
+              color: #dbb043;  
             }
         }
     }
@@ -187,7 +215,7 @@
     }
 }
 
-@media only screen and (max-width: 850px){
+@media only screen and (max-width: 1200px){
     .watchFilm__main{
         margin: 0 10px;
     }

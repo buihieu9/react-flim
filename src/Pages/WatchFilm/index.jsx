@@ -13,12 +13,49 @@ function WatchFilm() {
     const [filmStar, setFilmStar] = useState(null)
     const { id } = useParams()
     const openInfoRef = useRef()
+    const yourVoteItemRef = useRef()
     const InfoContainerRef = useRef()
+
+    const handleVoteStar = (index)=>{
+    }
+    const handleOverVoteStar = (index)=>{
+        let newArr = [...yourVoteItemRef.current.children]
+        newArr.forEach((item,i)=>{
+            if(i<index) item.classList.add('yellow')
+        })
+    }
+    const handleMouseOutVoteStar = ()=>{
+        let newArr = [...yourVoteItemRef.current.children]
+        newArr.forEach((item)=>{
+            item.classList.remove('yellow')
+        })
+    }
+    const renderStar = ()=>{
+        const star = []
+        for (let x = 0; x < 10; x++) {
+            star.push(<i
+                key={x}
+                onClick={() => {
+                    handleVoteStar(x + 1)
+                }}
+                onMouseOver={()=>{
+                    handleOverVoteStar(x+1)
+                }}
+                onMouseOut={()=>{
+                    handleMouseOutVoteStar()
+                }}
+                 className="fas fa-star"></i>)
+        }
+        return star.map((item)=>item)
+    }
     useEffect(() => {
         async function getFilm() {
             try {
-                let res = await FilmApi.getOne(id)
-                setFilm(res.data[0])
+                let res = await FilmApi.getOne({
+                    id:95840
+                })
+                console.log(res.data);
+                setFilm(res.data)
             }
             catch (err) {
                 if (err) alert(err)
@@ -31,7 +68,7 @@ function WatchFilm() {
         if (film) {
             let vote = []
             for (let i = 0; i < 10; i++) {
-                if (i < parseInt(film.voted)) vote.push(<i style={{
+                if (i < parseInt(film.vote)) vote.push(<i style={{
                     color: "#dbb043"
                 }} className="fas fa-star"></i>)
                 else vote.push(<i className="fas fa-star"></i>)
@@ -46,7 +83,7 @@ function WatchFilm() {
                     {
                         !isOpenFilm ?
                             <div className="watchFilm__video">
-                                <img src={film.largeImg} />
+                                <img src={film.largeImage} />
                                 <div onClick={() => {
                                     setIsOpenFilm(true)
                                 }} className="watchFilm__video__overlay">
@@ -62,7 +99,7 @@ function WatchFilm() {
                             </div>
                             : <div className="watchFilm__video">
                                 <video width="100%" autoPlay height="100%" controls>
-                                    <source type="video/mp4" src={film.videoUrl.mainlink} />
+                                    <source type="video/mp4" src={film.urlVideo.mainlink} />
                                 </video>
                             </div>
                     }
@@ -74,16 +111,24 @@ function WatchFilm() {
                                 <option value="sv2">Server 2</option>
                             </select>
                         </div>
-                        <div className="watchFilm__engName">{film.engName}</div>
+                        <div className="watchFilm__engName">
+                            <p>{film.engName}</p>
+                            <div className="watchFilm__engName__error">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <p>Film Error</p>
+                            </div>
+                        </div>
                         <div className="watchFilm__vote">
-                            <p>Voted: {film.voted}</p>
+                            <p>Voted: {film.vote}</p>
                             <div className="watchFilm__vote__star">
                                 {
                                     filmStar ? filmStar.map((item, index) => <div key={index}>{item}</div>) : ''
                                 }
                             </div>
                             <div>
-                                (200 voted)
+                                ( {
+                                    film.vote.length
+                                } voted )
                     </div>
                         </div>
                         <button className="watchFilm__trailer">Trailer <i className="fas fa-caret-right"></i></button>
@@ -127,18 +172,21 @@ function WatchFilm() {
                                     </ul>
                                 </li>
                                 <li className="watchFilm__filmInfo__bottom__description">{film.description}</li>
-                                <li>Genres: {film.category.map((item, index) => <span key={index}>{item}</span>)}</li>
+                                <li>Genres: {film.genres.map((item, index) => <span key={index}>{item}</span>)}</li>
                                 <li>Country: {film.country}</li>
                             </ul>
                         </div>
                     </div>
                     <div className="watchFilm__yourVote">
-                        <p>
-
-                        </p>
+                        <p>Vote this film</p>
+                        <div ref={yourVoteItemRef} className="watchFilm__yourVote__item">
+                            {
+                                renderStar()
+                            }
+                        </div>
                     </div>
                     <div className="watchFilm__comments">
-                        <Comments comments={film.comments} />
+                        <Comments comments={film.comment} />
                     </div>
                 </div > : <Loadding />
             }

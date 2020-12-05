@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import userContext from '../../context/UserContext'
 import "../../style/reset.css";
 import "./style.scss";
 function NavBar(props) {
   const [collapse, setCollapse] = useState(false);
-
+  const {user,setUser} = useContext(userContext)
   const handleCollapse = () => {
     setCollapse(!collapse);
   };
@@ -139,7 +140,9 @@ function NavBar(props) {
                 </div>
               </div>
               <div className="nav__login">
-                <NavLink to="/auth/sign-in">Login</NavLink>
+                {
+                  user?user.userName:<NavLink to="/auth/sign-in">Login</NavLink>
+                }
               </div>
             </div>
           </div>

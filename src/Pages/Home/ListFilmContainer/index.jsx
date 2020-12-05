@@ -12,6 +12,7 @@ function ListFilmContainer(props) {
       });
   }, []);
   return (
+    console.log(films),
     <div className="ListFilmContainer">
       <div className="ListFilmContainer__title">
         <a href="/">

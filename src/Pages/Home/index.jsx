@@ -6,8 +6,8 @@ function Home(props) {
   const { films } = props;
   return (
     <div>
-      <SlideShow slides={films} />
-      <ListFilmContainer />
+      <SlideShow  slides={films} />
+      <ListFilmContainer title="New Films" />
     </div>
   );
 }
