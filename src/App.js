@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Route, Switch, useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { UserProvider } from './context/UserContext'
+import { UserProvider } from "./context/UserContext";
 
 import NavBar from "./components/Header";
 import Home from "./Pages/Home";
@@ -9,19 +9,19 @@ import FilterFilm from "./Pages/FilterFilm";
 import WatchFilm from "./Pages/WatchFilm";
 import LeftComponent from "./components/LeftComponent";
 import Auth from "./Pages/Auth/index";
-import userApi from './api/userApi'
-
+import userApi from "./api/userApi";
 
 import "./App.css";
 import "./style/reset.css";
 
 function App() {
+  console.log("hello");
   const [data, setData] = useState([]);
   const [films, setFilms] = useState([]);
   const [unRight, setUnRight] = useState(false);
-  const [user,setUser] = useState(null)
+  const [user, setUser] = useState(null);
   const his = useLocation();
-  const history = useHistory()
+  const history = useHistory();
 
   useEffect(() => {
     fetch("https://5f8a739718c33c0016b31771.mockapi.io/Film")
@@ -30,16 +30,17 @@ function App() {
         setData(res);
         setFilms(res.slice(0, 6));
       });
-    const token = localStorage.getItem('jwt')
+    const token = localStorage.getItem("jwt");
     if (token) {
-      userApi.signInAfterReload().then((res)=>{
-        setUser(res.data)
-      })
-      .catch((err)=>{
-        localStorage.removeItem('jwt')
-      })
+      userApi
+        .signInAfterReload()
+        .then((res) => {
+          setUser(res.data);
+        })
+        .catch((err) => {
+          localStorage.removeItem("jwt");
+        });
     }
-
   }, []);
   useEffect(() => {
     if (his.pathname === "/auth/sign-in" || his.pathname === "/auth/sign-up") {
@@ -49,7 +50,7 @@ function App() {
     setUnRight(false);
   }, [his]);
   return (
-    <UserProvider value={{user,setUser}}>
+    <UserProvider value={{ user, setUser }}>
       <div className="app">
         <NavBar className="nav-bar" />
         <div className="app__container">
@@ -75,7 +76,7 @@ function App() {
                 <WatchFilm />
               </Route>
               <Route path="/:query1/:query2">
-                <FilterFilm/>
+                <FilterFilm />
               </Route>
               <Route path="/movies-shown-in-theater">
                 <FilterFilm />
