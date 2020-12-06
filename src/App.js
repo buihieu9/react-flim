@@ -10,6 +10,7 @@ import WatchFilm from "./Pages/WatchFilm";
 import LeftComponent from "./components/LeftComponent";
 import Auth from "./Pages/Auth/index";
 import userApi from "./api/userApi";
+import VideoPlayer from "./components/VideoPlayer";
 
 import "./App.css";
 import "./style/reset.css";
@@ -60,6 +61,7 @@ function App() {
           >
             <Switch>
               <Route path="/auth" component={Auth} />
+              <Route path="/video" component={VideoPlayer} />
               {/* <Route path="/genres">
                 <FilterFilm />
               </Route>
