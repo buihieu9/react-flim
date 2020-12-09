@@ -1,15 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import userContext from '../../context/UserContext'
+import userContext from "../../context/UserContext";
 import "../../style/reset.css";
 import "./style.scss";
 function NavBar(props) {
   const [collapse, setCollapse] = useState(false);
-  const {user,setUser} = useContext(userContext)
+  const { user, setUser } = useContext(userContext);
   const handleCollapse = () => {
     setCollapse(!collapse);
   };
-
   return (
     <nav className="nav">
       <div className="container">
@@ -140,9 +139,48 @@ function NavBar(props) {
                 </div>
               </div>
               <div className="nav__login">
-                {
-                  user?user.userName:<NavLink to="/auth/sign-in">Login</NavLink>
-                }
+                {user ? (
+                  <>
+                    {" "}
+                    <div className="user">
+                      <div className="logo-user">
+                        <img src={user.avatar} alt="logo" />
+                      </div>
+                    </div>
+                    <span className="user-name">{user.userName}</span>
+                    <ul className="menu-user">
+                      <span className="display-name">{user.userName}</span>
+                      <li className="user-item">
+                        <Link className="user-link" to="/">
+                          <i className="far fa-user"></i>
+                          Thông tin cá nhân
+                        </Link>
+                      </li>
+                      <li className="user-item">
+                        <Link className="user-link" to="/">
+                          <i className="fas fa-film"></i>
+                          tủ phim của bạn
+                        </Link>
+                      </li>
+                      <li className="user-item">
+                        <i className="fas fa-sign-out-alt"></i>
+                        <span
+                          className="user-link"
+                          onClick={() => {
+                            localStorage.removeItem("jwt");
+                            window.location.reload();
+                          }}
+                        >
+                          Đăng Xuất
+                        </span>
+                      </li>
+                    </ul>
+                  </>
+                ) : (
+                  <NavLink className="btn-login" to="/auth/sign-in">
+                    Login
+                  </NavLink>
+                )}
               </div>
             </div>
           </div>
