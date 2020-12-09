@@ -134,12 +134,12 @@ html {
         max-height: 3rem;
         line-height: 3rem;
         &:hover{
-            a{
+            .btn-login{
                 background-color: #000000;
                 color: $color-green;
             }
         }
-        a {
+        .btn-login {
             max-height: 3rem;
             font-size: 1.4rem;
             color: #CDCDCD;
@@ -178,6 +178,73 @@ html {
     }
 
 
+}
+
+.nav__login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    &:hover  > .menu-user {
+        opacity: 1;
+        visibility: unset;
+    }
+    .user {
+        width: 40%;
+        .logo-user {
+            margin: 0 auto;
+            width: 3rem;
+            height: 3rem;
+            img {
+                border-radius: 50%;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    .user-name {
+
+        display: none;
+        width: 50%;
+        font-size: 1.6rem;
+        font-weight: bold;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .display-name {
+        display: inline-block;
+        width: 100%;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid rgb(59, 59, 59);
+        color: $color-green;
+    }
+    .menu-user {
+        // display: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: all .3s;
+        position: absolute;
+        z-index: 99;
+        top:5rem;
+        right: 2rem;
+        width: 23rem;
+        border-bottom: 2px solid $color-green;
+        background-color: $background-color;
+        .user-item {
+            padding: 1rem 2rem;
+            background-color: $background-color;
+            transition: all .4s;
+            &:hover {
+                background-color: black;
+            }
+            i {
+                margin-right: 1rem;
+                color: $color-green;
+            }
+        }
+
+    }
 }
 
 .nav__active{
@@ -224,6 +291,9 @@ label {
         }
         &__login {
             width: 15rem;
+        }
+        .user-name {
+            display: block;
         }
     }
 

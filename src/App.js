@@ -16,13 +16,11 @@ import "./App.css";
 import "./style/reset.css";
 
 function App() {
-  console.log("hello");
   const [data, setData] = useState([]);
   const [films, setFilms] = useState([]);
   const [unRight, setUnRight] = useState(false);
   const [user, setUser] = useState(null);
-  const his = useLocation();
-  const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     fetch("https://5f8a739718c33c0016b31771.mockapi.io/Film")
@@ -37,6 +35,7 @@ function App() {
         .signInAfterReload()
         .then((res) => {
           setUser(res.data);
+          console.log(res.data);
         })
         .catch((err) => {
           localStorage.removeItem("jwt");
@@ -44,12 +43,15 @@ function App() {
     }
   }, []);
   useEffect(() => {
-    if (his.pathname === "/auth/sign-in" || his.pathname === "/auth/sign-up") {
+    if (
+      location.pathname === "/auth/sign-in" ||
+      location.pathname === "/auth/sign-up"
+    ) {
       setUnRight(true);
       return;
     }
     setUnRight(false);
-  }, [his]);
+  }, [location]);
   return (
     <UserProvider value={{ user, setUser }}>
       <div className="app">
