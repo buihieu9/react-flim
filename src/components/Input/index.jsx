@@ -5,6 +5,7 @@ function Input(props) {
   return (
     <div className="input">
       <input
+      autoComplete="off"
         name={name}
         type={type}
         // value={value}

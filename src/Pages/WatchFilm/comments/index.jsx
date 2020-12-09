@@ -1,24 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.scss";
 function Comments(props) {
   const { comments } = props;
+
+  const [allComments,setAllcomment] = useState([])
+
+  useEffect(()=>{
+    setAllcomment(comments)
+  },[])
+
+  const handleSubmit = (e)=>{
+    e.preventDefault()
+    setAllcomment([...allComments,{
+      avatar:"https://cf.shopee.vn/file/6705ccbb67416a1dd07e00ec1eddd49b",
+      userName:"dohainam",
+      comment:e.target.inputComment.value
+    }])
+  }
+  useEffect(()=>{
+    console.log(allComments);
+  },[allComments])
   return (
     <div className="comments">
-      <form className="comments__form">
+      <form onSubmit={handleSubmit} className="comments__form">
         <img
           src="https://cf.shopee.vn/file/6705ccbb67416a1dd07e00ec1eddd49b"
           alt="logo"
         />
-        <textarea
+        <input
+          autoComplete="off"
+          type="text"
           maxLength="185"
           placeholder="Your comments"
-          name="input-comment"
+          name="inputComment"
         />
-        <button>Comment</button>
+        <button type="submit">Comment</button>
       </form>
       <div className="comments__listComment">
         <ul className="comments__listComment__container">
-          {comments.map((item) => (
+          {allComments.map((item) => (
             <li>
               <div className="comments__listComment__container__img">
                 <img src={item.avatar} alt="logo" />
@@ -30,7 +50,9 @@ function Comments(props) {
             </li>
           ))}
         </ul>
-        <div className="comments__listComment__loading"></div>
+        <div className="comments__listComment__loading">
+                <span>See More...</span>
+        </div>
       </div>
     </div>
   );

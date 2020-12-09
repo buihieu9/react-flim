@@ -38,32 +38,32 @@ function NavBar(props) {
                 <input type="checkbox" id="checkbox1" />
                 <ul className="nav__smenu">
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="/genres/action">
+                    <Link className="smenu__link" to="/filter/genres=action">
                       Phim Hành Động
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="/genres/horror">
+                    <Link className="smenu__link" to="/filter/genres=horror">
                       Phim King Dị
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="/genres/science-fiction">
+                    <Link className="smenu__link" to="/filter/genres=science-fiction">
                       Phim Khoa Học Viễn Tưởng
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="/genres/comedy">
+                    <Link className="smenu__link" to="/filter/genres=comedy">
                       Phim Hài
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="/genres/drama">
+                    <Link className="smenu__link" to="/filter/genres=drama">
                       Phim Tâm Lý
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="/genres/cartoon">
+                    <Link className="smenu__link" to="/filter/genres=cartoon">
                       Phim Hoạt Hình
                     </Link>
                   </li>
@@ -76,49 +76,49 @@ function NavBar(props) {
                 <input type="checkbox" id="checkbox2" />
                 <ul className="nav__smenu">
                   <li className="smenu__item">
-                    <Link to="/country/vietnam" className="smenu__link">
+                    <Link to="/filter/country=vietnam" className="smenu__link">
                       Phim Việt Nam
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="/country/united-states" className="smenu__link">
+                    <Link to="/filter/country=united-states" className="smenu__link">
                       Phim Mỹ
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="/country/china" className="smenu__link">
+                    <Link to="/filter/country=china" className="smenu__link">
                       Phim Trung Quốc
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="/country/korea" className="smenu__link">
+                    <Link to="/filter/country=korea" className="smenu__link">
                       Phim Hàn Quốc
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="/country/japan" className="smenu__link">
+                    <Link to="/filter/country=japan" className="smenu__link">
                       Phim Nhật Bản
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="/country/hongkong" className="smenu__link">
+                    <Link to="/filter/country=hongkong" className="smenu__link">
                       Phim Hong Kong
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="/country/europe" className="smenu__link">
+                    <Link to="/filter/country=europe" className="smenu__link">
                       Phim Âu Mỹ
                     </Link>
                   </li>
                 </ul>
               </li>
               <li className="nav__item">
-                <NavLink to="/hot-films" className="nav__link">
+                <NavLink to="/filter/sort=votes" className="nav__link">
                   Phim Hot
                 </NavLink>
               </li>
               <li className="nav__item">
-                <NavLink to="/new-films" className="nav__link">
+                <NavLink to="/filter/year=2020" className="nav__link">
                   Phim Mới
                 </NavLink>
               </li>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import HotFilm from "../HotFilm";
+import Conversation from '../Conversation'
 
 import "./style.scss";
 
@@ -18,7 +19,10 @@ function LeftComponent(props) {
   //   }, []);
   return (
     <div className="LeftComponent">
-      <HotFilm films={films} title="Hot Films" />
+      <Conversation/>
+      <div className="LeftComponent__topFilms">
+        <HotFilm films={films} title="Hot Films" />
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Loadding from "../../../components/Loadding";
 import "./style.scss";
 function SlideShow(props) {
   const { slides } = props;
@@ -30,7 +31,7 @@ function SlideShow(props) {
       }
     }
     let slide = slideShowRef.current;
-    slide.addEventListener("touchstart", handleStart, { passive: true });
+    slide.addEventListener("touchstart", handleStart,{passive:true} );
     slide.addEventListener("touchend", handleEnd);
     runSlideShowRef.current = setInterval(() => {
       if (count >= slides.length - 1) {
@@ -40,7 +41,7 @@ function SlideShow(props) {
       }
     }, 7000);
     return () => {
-      slide.removeEventListener("touchstart", handleStart, { passive: true });
+      slide.removeEventListener("touchstart", handleStart);
       slide.removeEventListener("touchend", handleEnd);
       clearInterval(runSlideShowRef.current);
     };
@@ -59,7 +60,8 @@ function SlideShow(props) {
         }}
         className="home__slideShow__container"
       >
-        {slides.map((item) => {
+        {slides.length?
+          slides.map((item) => {
           return (
             <div key={item.id} className="home__slideShow__item">
               <a href="/">
@@ -67,12 +69,13 @@ function SlideShow(props) {
               </a>
             </div>
           );
-        })}
+        }):<Loadding/>
+      }
       </div>
       <div className="home-slideShow-dotButton">
-        <div onClick={()=>{
-          if(count>0){
-            changeSlideImg(count-1)
+        <div onClick={() => {
+          if (count > 0) {
+            changeSlideImg(count - 1)
           }
         }} className="home-slideShow-arrow">
           <i className="fas fa-chevron-left"></i>
@@ -83,7 +86,7 @@ function SlideShow(props) {
               <li className={index} key={item.id}>
                 <span
                   style={{
-                    transform: count === index&&'scale(1.1)',
+                    transform: count === index && 'scale(1.1)',
                     backgroundColor: count === index ? "rgba(255,255,255,0.9)" : "transparent",
                   }}
                   onClick={() => changeSlideImg(index)}
@@ -92,9 +95,9 @@ function SlideShow(props) {
             );
           })}
         </ul>
-        <div onClick={()=>{
-          if(count<slides.length-1){
-            changeSlideImg(count+1)
+        <div onClick={() => {
+          if (count < slides.length - 1) {
+            changeSlideImg(count + 1)
           }
         }} className="home-slideShow-arrow">
           <i className="fas fa-chevron-right"></i>

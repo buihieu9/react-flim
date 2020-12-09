@@ -7,11 +7,11 @@
         img{
             width: 6%;
         }
-        textarea{
+        input{
             width: 90%;
             resize: none;
-            font-size: 2rem;
-            padding: 0.5rem;
+            font-size: 1.5rem;
+            padding: 1.5rem 1rem;
             outline: none;
         }
         button{
@@ -20,7 +20,7 @@
         }
     }
     &__listComment{
-        margin: 10px 0;
+        margin: 10px 0 0 0;
         &__container{
             li{
                 margin:10px 0;
@@ -48,6 +48,10 @@
                 }
             }
         }
+        &__loading{
+            display: flex;
+            justify-content: center;
+        }
     }
 }
 @media only screen and (max-width: 500px){
@@ -57,5 +61,19 @@
                 width: 12%;
             }
         }
+        &__listComment{
+            &__container{
+                li{
+                    .comments__listComment__container__img{
+                        width: 12%;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1024px){
+    .comments{
+        padding: 0 5px;
     }
 }

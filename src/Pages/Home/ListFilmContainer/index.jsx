@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ListFilm from "../../../components/ListFilm";
+import Loadding from '../../../components/Loadding'
 import "./style.scss";
 function ListFilmContainer(props) {
   const { title } = props;
@@ -12,7 +13,6 @@ function ListFilmContainer(props) {
       });
   }, []);
   return (
-    console.log(films),
     <div className="ListFilmContainer">
       <div className="ListFilmContainer__title">
         <a href="/">
@@ -20,7 +20,7 @@ function ListFilmContainer(props) {
           <i className="fas fa-caret-right"></i>
         </a>
       </div>
-      {films.length ? <ListFilm films={films} /> : "..."}
+      {films.length ? <ListFilm films={films} /> : <Loadding/>}
     </div>
   );
 }

@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import Comments from './comments'
 import Loadding from '../../components/Loadding'
 import FilmApi from '../../api/filmApi'
+import ErrorPage from '../../components/ErrorPage'
 import './style.scss'
 
 function WatchFilm() {
@@ -11,6 +12,7 @@ function WatchFilm() {
     const [isOpenFilm, setIsOpenFilm] = useState(false)
     const [film, setFilm] = useState(null)
     const [filmStar, setFilmStar] = useState(null)
+    const [err,setErr] = useState(false)
     const { id } = useParams()
     const openInfoRef = useRef()
     const yourVoteItemRef = useRef()
@@ -58,7 +60,7 @@ function WatchFilm() {
                 setFilm(res.data)
             }
             catch (err) {
-                if (err) alert(err)
+                if (err) setErr(true)
             }
         }
         getFilm()
@@ -79,7 +81,10 @@ function WatchFilm() {
     return (
         <>
             {
-                film ? <div className="watchFilm">
+                err&& <ErrorPage/>
+            }
+            {
+               !err&&film && <div className="watchFilm">
                     {
                         !isOpenFilm ?
                             <div className="watchFilm__video">
@@ -114,7 +119,7 @@ function WatchFilm() {
                         <div className="watchFilm__engName">
                             <p>{film.engName}</p>
                             <div className="watchFilm__engName__error">
-                                <i class="fas fa-exclamation-triangle"></i>
+                                <i className="fas fa-exclamation-triangle"></i>
                                 <p>Film Error</p>
                             </div>
                         </div>
@@ -172,7 +177,12 @@ function WatchFilm() {
                                     </ul>
                                 </li>
                                 <li className="watchFilm__filmInfo__bottom__description">{film.description}</li>
-                                <li>Genres: {film.genres.map((item, index) => <span key={index}>{item}</span>)}</li>
+                                <li>Genres: {film.genres.map((item, index) =>{
+                                    if(index!==film.genres.length-1){
+                                       return <span key={index}>{item},</span>
+                                    }
+                                    else return <span key={index}>{item}.</span>
+                                } )}</li>
                                 <li>Country: {film.country}</li>
                             </ul>
                         </div>
@@ -188,7 +198,10 @@ function WatchFilm() {
                     <div className="watchFilm__comments">
                         <Comments comments={film.comment} />
                     </div>
-                </div > : <Loadding />
+                </div >
+            }
+            {
+                !film&&!err&& <Loadding />
             }
         </>
     )

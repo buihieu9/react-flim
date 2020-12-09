@@ -28,7 +28,7 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         setData(res);
-        setFilms(res.slice(0, 6));
+        setFilms(res.slice(0,7));
       });
     const token = localStorage.getItem('jwt')
     if (token) {
@@ -59,26 +59,14 @@ function App() {
           >
             <Switch>
               <Route path="/auth" component={Auth} />
-              {/* <Route path="/genres">
-                <FilterFilm />
-              </Route>
-              <Route path="/country">
-                <FilterFilm />
-              </Route>
-              <Route path="/hot-films">
-                <FilterFilm />
-              </Route>
-              <Route path="/new-films">
-                <FilterFilm />
-              </Route> */}
               <Route path="/watch-film/:id">
                 <WatchFilm />
               </Route>
-              <Route path="/:query1/:query2">
-                <FilterFilm/>
+              <Route path="/filter/:query">
+                <FilterFilm films={films}/>
               </Route>
               <Route path="/movies-shown-in-theater">
-                <FilterFilm />
+                <FilterFilm  />
               </Route>
               <Route exact path="/">
                 <Home films={films} />
