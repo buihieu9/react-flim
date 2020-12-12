@@ -52,9 +52,10 @@ html {
         left: 0;
         visibility: hidden;
         z-index: 99;
+        overflow: hidden;
         background-color: rgba(0,0,0,1);
         transition: all 1s;
-        opacity: 0;
+        // opacity: 0;
     }
     &__menu {
         display: flex;
@@ -159,11 +160,10 @@ html {
         flex-wrap: wrap;
         height: 0;
         overflow: hidden;
-
-        // opacity: 0;
         transition: all .3s linear;
         .smenu__item {
             width: 50%;
+            text-align: start;
             &:last-child {
                 margin-bottom: 2rem;
             }
@@ -421,7 +421,6 @@ label {
         }
 
     }
-
 }
 
 

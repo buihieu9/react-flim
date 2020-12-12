@@ -1,6 +1,7 @@
 .input {
     display: flex;
     justify-content: center;
+    position: relative;
 
     input {
         outline: unset;
@@ -12,6 +13,15 @@
         color: white;
         border-radius: 5px;
     }
-
+    .toggle-pass {
+        position: absolute;
+        width: 3rem;
+        height: 3.7rem;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
 }
 

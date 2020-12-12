@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Input from "../../../components/Input/index";
 import { Link } from "react-router-dom";
-import userApi from '../../../api/userApi'
+import userApi from "../../../api/userApi";
 import "../style.scss";
 
 function Signup(props) {
@@ -11,7 +11,7 @@ function Signup(props) {
     password: "",
     confirmPassword: "",
   });
-  const [successMessage,setSuccessMessage]= useState(null)
+  const [successMessage, setSuccessMessage] = useState(null);
   const [err, setErr] = useState({
     isErr: false,
     nameErr: "",
@@ -25,30 +25,29 @@ function Signup(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSuccessMessage(null)
-    validate('email',true)
-    validate('password',true)
-    validate('confirmPassword',true)
-    if(!err.isErr){
-      try{
-          await userApi.signUp({
+    setSuccessMessage(null);
+    validate("email", true);
+    validate("password", true);
+    validate("confirmPassword", true);
+    if (!err.isErr) {
+      try {
+        await userApi.signUp({
           userName: value.userName,
           password: value.password,
-          email:value.email
-        })
-        setSuccessMessage("You have registered successfully")
-      }
-      catch(err){
+          email: value.email,
+        });
+        setSuccessMessage("You have registered successfully");
+      } catch (err) {
         setErr({
-          isErr:true,
-          nameErr:err.response.data
-        })
-      }    
+          isErr: true,
+          nameErr: err.response.data,
+        });
+      }
     }
   };
 
-  const validate = (name,submit=false) => {
-    if(!submit){
+  const validate = (name, submit = false) => {
+    if (!submit) {
       setErr({
         ...err,
         isErr: false,
@@ -66,9 +65,8 @@ function Signup(props) {
         });
       }
       return;
-    }
-    else if (name === "password") {
-      if (value.password.length < 6||value.password.trim() === "") {
+    } else if (name === "password") {
+      if (value.password.length < 6 || value.password.trim() === "") {
         setErr({
           ...err,
           isErr: true,
@@ -76,24 +74,31 @@ function Signup(props) {
         });
         return;
       }
-    }
-     else if (name === "confirmPassword") {
-      if( value.confirmPassword !== value.password){
+    } else if (name === "confirmPassword") {
+      if (value.confirmPassword !== value.password) {
         setErr({
           ...err,
-          isErr:true,
+          isErr: true,
           nameErr: "confirmPassword không trùng nhau",
         });
-        return
+        return;
       }
     }
   };
-  const handle = (e)=>{
-      validate(e.target.name)
-  }
+  const handle = (e) => {
+    validate(e.target.name);
+  };
   useEffect(() => {
-    console.log(err)
-  }, [err])
+    console.log(err);
+  }, [err]);
+
+  // const test = (e) => {
+  //   let b = e.target.parentElement.firstChild.firstChild.type;
+  //   console.log(b);
+  //   // e.target.parentElement.childNodes[0].setAttribute("type", "text");
+  //   e.target.parentElement.firstChild.firstChild.type = b === "text" ? "password" : "text";
+  // };
+
   return (
     <div className="container__auth">
       <div className="logo">
@@ -105,11 +110,11 @@ function Signup(props) {
           <p>{err.nameErr}</p>
         </div>
       )}
-      {
-        successMessage&&<div className="success">
+      {successMessage && (
+        <div className="success">
           <p>{successMessage}</p>
         </div>
-      }
+      )}
       <form onSubmit={handleSubmit}>
         <div className="container-input">
           <Input
@@ -139,6 +144,7 @@ function Signup(props) {
             value={value.password}
             onChange={handleChange}
             onBlur={handle}
+            showPassword={true}
           />
         </div>
         <div className="container-input">
@@ -149,6 +155,7 @@ function Signup(props) {
             value={value.confirmPassword}
             onChange={handleChange}
             onBlur={handle}
+            showPassword={true}
           />
         </div>
         <div className="btn">

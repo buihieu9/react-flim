@@ -27,9 +27,9 @@ function VideoPlayer(props) {
   const cursor = useRef(null);
   const [valueVolum, setValueVolum] = useState(50);
   let mouseDown = false;
-  let isTrue = true;
   let timeOut = null;
-
+  let istrue = true;
+  const { link } = props;
   const [control, setControl] = useState({
     onPlay: true,
     onLoading: false,
@@ -46,10 +46,6 @@ function VideoPlayer(props) {
     });
     const a = control.onPlay ? "play" : "pause";
     video.current[a]();
-    if (isTrue) {
-      durationVideo.current = formatTime(video.current.duration);
-      isTrue = false;
-    }
   };
 
   const handleLoading = () => {
@@ -64,6 +60,10 @@ function VideoPlayer(props) {
       ...control,
       onLoading: false,
     });
+    if (istrue) {
+      durationVideo.current = formatTime(video.current.duration);
+      istrue = false;
+    }
   };
   const handleVolum = (e) => {
     setValueVolum(e.target.value);
@@ -149,13 +149,15 @@ function VideoPlayer(props) {
           ref={video}
           height="100%"
           className="video"
-          src="https://bitly.com.vn/7fjcvk"
+          src={link}
           type="video/mp4"
           muted={muted}
           onTimeUpdate={handleProgress}
           onClick={handleOnplay}
-          // onWaiting={handleLoading}
-          // onPlaying={}
+          onLoadStart={() => {
+            handleOnplay();
+          }}
+          playsInline
           preload="metadata"
           onMouseUp={() => (mouseDown = false)}
           onMouseMove={(e) => {

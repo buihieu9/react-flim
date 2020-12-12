@@ -10,10 +10,11 @@ import WatchFilm from "./Pages/WatchFilm";
 import LeftComponent from "./components/LeftComponent";
 import Auth from "./Pages/Auth/index";
 import userApi from "./api/userApi";
-import VideoPlayer from "./components/VideoPlayer";
+import ErrorPage from "./components/ErrorPage";
 
 import "./App.css";
 import "./style/reset.css";
+import Member from "./Pages/Member";
 
 function App() {
   const [data, setData] = useState([]);
@@ -27,7 +28,7 @@ function App() {
       .then((res) => res.json())
       .then((res) => {
         setData(res);
-        setFilms(res.slice(0,7));
+        setFilms(res.slice(0, 7));
       });
     const token = localStorage.getItem("jwt");
     if (token) {
@@ -45,7 +46,10 @@ function App() {
   useEffect(() => {
     if (
       location.pathname === "/auth/sign-in" ||
-      location.pathname === "/auth/sign-up"
+      location.pathname === "/auth/sign-up" ||
+      location.pathname === "/member/user-infor" ||
+      location.pathname === "/member/favorite-film" ||
+      location.pathname === "/member/change-password"
     ) {
       setUnRight(true);
       return;
@@ -67,13 +71,17 @@ function App() {
                 <WatchFilm />
               </Route>
               <Route path="/filter/:query">
-                <FilterFilm films={films}/>
+                <FilterFilm films={films} />
               </Route>
               <Route path="/movies-shown-in-theater">
-                <FilterFilm  />
+                <FilterFilm />
               </Route>
               <Route exact path="/">
                 <Home films={films} />
+              </Route>
+              {user && <Route path="/member" component={Member} />}
+              <Route exact path="*">
+                <ErrorPage />
               </Route>
             </Switch>
           </div>

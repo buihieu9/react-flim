@@ -47,7 +47,10 @@ function NavBar(props) {
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link className="smenu__link" to="/filter/genres=science-fiction">
+                    <Link
+                      className="smenu__link"
+                      to="/filter/genres=science-fiction"
+                    >
                       Phim Khoa Học Viễn Tưởng
                     </Link>
                   </li>
@@ -80,7 +83,10 @@ function NavBar(props) {
                     </Link>
                   </li>
                   <li className="smenu__item">
-                    <Link to="/filter/country=united-states" className="smenu__link">
+                    <Link
+                      to="/filter/country=united-states"
+                      className="smenu__link"
+                    >
                       Phim Mỹ
                     </Link>
                   </li>
@@ -151,7 +157,7 @@ function NavBar(props) {
                     <ul className="menu-user">
                       <span className="display-name">{user.userName}</span>
                       <li className="user-item">
-                        <Link className="user-link" to="/">
+                        <Link className="user-link" to="/member/user-infor">
                           <i className="far fa-user"></i>
                           Thông tin cá nhân
                         </Link>
