@@ -66,7 +66,7 @@ function Signin(props) {
   return (
     <div style={{ height: "400px" }} className="container__auth">
       <div className="logo">
-        <img src="https://bapngoz.com/logo.png" alt="logo" />
+        <img src="https://i.imgur.com/lGh30No.png" alt="logo" />
       </div>
       {err && (
         <div style={{ marginTop: "30px" }} className="err">

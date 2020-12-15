@@ -36,11 +36,13 @@ function Signup(props) {
           password: value.password,
           email: value.email,
         });
+
         setSuccessMessage("You have registered successfully");
       } catch (err) {
+        console.log(err.response);
         setErr({
           isErr: true,
-          nameErr: err.response.data,
+          nameErr: err.response.data.message,
         });
       }
     }
@@ -102,7 +104,7 @@ function Signup(props) {
   return (
     <div className="container__auth">
       <div className="logo">
-        <img src="https://bapngoz.com/logo.png" alt="logo" />
+        <img src="https://i.imgur.com/lGh30No.png" alt="logo" />
       </div>
 
       {err.isErr && (

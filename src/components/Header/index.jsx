@@ -24,12 +24,13 @@ function NavBar(props) {
   const [isLoading2, setIsLoading2] = useState(true);
 
   useEffect(() => {
-    countryApi.getAll().then((res) => {
+    countryApi.getAll({ limit: 20 }).then((res) => {
       setFillterCountry(res.data);
       setIsLoading1(false);
     });
-    categoryApi.getAll().then((res) => {
+    categoryApi.getAll({ limit: 20 }).then((res) => {
       setFilltercAtegory(res.data);
+      console.log(res.data);
       setIsLoading2(false);
     });
   }, []);
@@ -44,7 +45,7 @@ function NavBar(props) {
         <div className="row">
           <div className="col col-img">
             <NavLink to="/" className="nav__logo">
-              <img src="https://bapngoz.com/logo.png" alt="logo" />
+              <img src="https://i.imgur.com/lGh30No.png" alt="logo" />
             </NavLink>
           </div>
           <div className="col col-hamburger">
@@ -70,7 +71,7 @@ function NavBar(props) {
                       <li className="smenu__item" key={category._id}>
                         <Link
                           className="smenu__link"
-                          to={`/filter/genres=${category.slug}`}
+                          to={`/filter/genres=${category._id}`}
                         >
                           {category.name}
                         </Link>
@@ -89,7 +90,7 @@ function NavBar(props) {
                       return (
                         <li className="smenu__item" key={country._id}>
                           <Link
-                            to={`/filter/country=${country.slug}`}
+                            to={`/filter/country=${country._id}`}
                             className="smenu__link"
                           >
                             {country.name}

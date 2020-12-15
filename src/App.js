@@ -15,6 +15,7 @@ import ErrorPage from "./components/ErrorPage";
 import "./App.css";
 import "./style/reset.css";
 import Member from "./Pages/Member";
+import Footer from "./Pages/Footer";
 
 function App() {
   const [data, setData] = useState([]);
@@ -32,16 +33,16 @@ function App() {
       });
     const token = localStorage.getItem("token");
     if (token) {
-      console.log('ok2');
+      console.log("ok2");
       userApi
         .signInAfterReload()
         .then((res) => {
           setUser(res.data);
-          console.log('ok');
+          console.log("ok");
           console.log(res);
         })
         .catch((err) => {
-          console.log('loi');
+          console.log("loi");
           localStorage.removeItem("token");
         });
     }
@@ -94,6 +95,7 @@ function App() {
             </div>
           )}
         </div>
+        <Footer />
       </div>
     </UserProvider>
   );
