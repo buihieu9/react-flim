@@ -13,6 +13,7 @@ function Conversation() {
     const [loadding,setLoadding] = useState(false)
     const imageUploadedRef = useRef([])
     const [currentChats,setCurrentChat] = useState([])
+    let totalRef = useRef()
     const chatRef = useRef([])
     const chatBox = useRef()
     const {user,setUser} = useContext(userContext)
@@ -169,10 +170,11 @@ function Conversation() {
             if(res.status === 200){
                 let arr = []
                 console.log(res);
-                res.data.forEach((item)=>{
+                res.data.data.forEach((item)=>{
                     if(item.isImg) arr.unshift(createChat(item,item.isImg))
                     else arr.unshift(createChat(item,item.isImg))
                 })
+                totalRef.current = res.data.total
                 setCurrentChat(arr)
             }
         })
@@ -194,7 +196,7 @@ function Conversation() {
             }
             <div ref={chatBox} onScroll={(e)=>{
                 let scrolled = e.target.scrollTop
-                if(scrolled <= 0){
+                if(scrolled <= 0 && currentChats.length< totalRef.current){
                     setLoadding(true)
                     conversationApi.getMany({
                         limit:currentChats.length+5
@@ -202,11 +204,12 @@ function Conversation() {
                         if(res.status === 200){
                             let arr = []
                             console.log(res);
-                            res.data.forEach((item)=>{
+                            res.data.data.forEach((item)=>{
                                 if(item.isImg) arr.unshift(createChat(item,item.isImg))
                                 else arr.unshift(createChat(item,item.isImg))
                             })
                             setCurrentChat(arr)
+                            totalRef.current = res.data.total
                             setLoadding(false)
                         }
                     })

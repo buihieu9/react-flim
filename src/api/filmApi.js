@@ -29,4 +29,12 @@ filmApi.postComment = async(params)=>{
         data:params
     })
 }
+filmApi.postFilmError = async(params)=>{
+    const url = '/api/filmError/createFilmError'
+    return await axiosClient({
+        method:"POST",
+        url:url,
+        data:params
+    })
+}
 export default filmApi;

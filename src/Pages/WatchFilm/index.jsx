@@ -16,25 +16,25 @@ function WatchFilm() {
   const [film, setFilm] = useState(null);
   const [filmStar, setFilmStar] = useState(null);
   const [err, setErr] = useState(false);
-  const {user,setUser} = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
   const { id } = useParams();
   const openInfoRef = useRef();
   const yourVoteItemRef = useRef();
   const InfoContainerRef = useRef();
 
   const handleVoteStar = (index) => {
-    if(user){
+    if (user) {
       console.log(index);
-      try{
+      try {
         filmApi.voteFilm({
           idFilm: id,
           idUser: user._id,
-          vote:index,
-        }).then((res)=>{
+          vote: index,
+        }).then((res) => {
           alert(res.data.message)
         })
       }
-      catch(err){
+      catch (err) {
         alert(err)
       }
     }
@@ -73,6 +73,10 @@ function WatchFilm() {
     }
     return star.map((item) => item);
   };
+  const convertDate = () => {
+    var res = film.updatedAt.toString().slice(0, 10).replace(/-/g, "/");
+    return res
+  }
   useEffect(() => {
     async function getFilm() {
       try {
@@ -144,10 +148,10 @@ function WatchFilm() {
               </div>
             </div>
           ) : (
-            <div className="watchFilm__video">
-              <VideoPlayer link={film.urlVideo.mainlink} />
-            </div>
-          )}
+              <div className="watchFilm__video">
+                <VideoPlayer link={film.url} />
+              </div>
+            )}
           <div className="watchFilm__main">
             <div className="watchFilm__vieName">
               <p>{film.name}</p>
@@ -158,19 +162,37 @@ function WatchFilm() {
             </div>
             <div className="watchFilm__engName">
               <p>{film.ename}</p>
-              <div className="watchFilm__engName__error">
-                <i className="fas fa-exclamation-triangle"></i>
-                <p>Film Error</p>
+              <div className="watchFilm__engName__favorite">
+                <i class="fas fa-heart"></i>
+                <p>Favorite film</p>
               </div>
             </div>
             <div className="watchFilm__vote">
-              <p>Voted: {film.averageVote}</p>
-              <div className="watchFilm__vote__star">
-                {filmStar
-                  ? filmStar.map((item, index) => <div key={index}>{item}</div>)
-                  : ""}
+              <div className="watchFilm__vote__right">
+                <p>Voted: {film.averageVote}</p>
+                <div className="watchFilm__vote__right__star">
+                  {filmStar
+                    ? filmStar.map((item, index) => <div key={index}>{item}</div>)
+                    : ""}
+                </div>
+                <div>( {film.voteLength} voted )</div>
               </div>
-              <div>( {film.voteLength} voted )</div>
+              <div className="watchFilm__vote__left">
+                <div onClick={()=>{
+                  if(user){
+                    filmApi.postFilmError({
+                      id:id
+                    }).then((res)=>{
+                      if(res.status === 200) alert("report film successfully")
+                      else alert('something wrong')
+                    })
+                  }
+                  else alert('you have to login to report')
+                }} className="watchFilm__vote__left__error">
+                  <i className="fas fa-exclamation-triangle"></i>
+                  <p>Film Error</p>
+                </div>
+              </div>
             </div>
             <button className="watchFilm__trailer">
               Trailer <i className="fas fa-caret-right"></i>
@@ -200,7 +222,7 @@ function WatchFilm() {
                 }
               >
                 <li>Subtitle: VietSub</li>
-                <li>Update date: 1/1/2020</li>
+                <li>Update date: {convertDate()}</li>
                 <li>Movie length: 120 munites</li>
                 <li style={{ display: "flex", alignItems: "center" }}>
                   <p>Actors:</p>

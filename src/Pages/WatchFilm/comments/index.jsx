@@ -41,12 +41,12 @@ function Comments(props) {
               }
             ]
           },...allComments])
+          e.target.inputComment.value=""
         }
       })
     }catch(err){
       alert(err)
     }
-    e.target.inputComment.value=""
   }
   useEffect(()=>{
     console.log(allComments);

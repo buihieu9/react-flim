@@ -59,14 +59,14 @@
     &__engName{
         display: flex;
         justify-content: space-between;
+        align-items: center;
         font-weight: 400;
         opacity: 0.8;
-        &__error{
+        &__favorite{
             display: flex;
             font-size: 15px;
             align-items: center;
             color: #da4d4d;
-            cursor: pointer;
             i{
                 margin: 0 5px 5px 0;
             }
@@ -88,6 +88,10 @@
         }
     }
     &__vote{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+       &__right{
         font-size: 2rem;
         display: flex;
         align-items: center;
@@ -108,6 +112,22 @@
                 padding: 0.1rem;
             }
         }
+       }
+       &__left{
+        &__error{
+            display: flex;
+            font-size: 15px;
+            align-items: center;
+            color: #a5c41c;
+            cursor: pointer;
+            i{
+                margin: 0 5px 5px 0;
+            }
+            p{
+                font-weight: 700;
+            }
+        }
+       }
     }
     &__yourVote{
         font-size: 20px;
@@ -231,7 +251,7 @@
     }
 }
 @media only screen and (max-width: 550px){
-    .watchFilm__vote__star{
+    .watchFilm__vote__right__star{
         display: none;
     }
 }

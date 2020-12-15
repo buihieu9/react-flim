@@ -6,6 +6,10 @@ import "./style.scss";
 function NavBar(props) {
   const [collapse, setCollapse] = useState(false);
   const { user, setUser } = useContext(userContext);
+  const [inputSearch, setInputSearch] = useState('')
+  const handleSubmit = (e)=>{
+
+  }
   const handleCollapse = () => {
     setCollapse(!collapse);
   };
@@ -136,14 +140,16 @@ function NavBar(props) {
           </div>
           <div className="col nav__search">
             <div className="nav__form">
-              <div className="nav__input">
-                <input type="text" placeholder="Search" />
+              <form onSubmit={handleSubmit} className="nav__input">
+                <input onChange={(e)=>{
+                  setInputSearch(e.target.value)
+                }} type="text" placeholder="Search" />
                 <div className="nav__form--btn">
                   <button type="submit">
                     <i className="fas fa-search"></i>
                   </button>
                 </div>
-              </div>
+              </form>
               <div className="nav__login">
                 {user ? (
                   <>
