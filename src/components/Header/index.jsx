@@ -1,18 +1,43 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import userContext from "../../context/UserContext";
+import FilmApi from '../../api/filmApi'
 import "../../style/reset.css";
 import "./style.scss";
+import countryApi from "../../api/country";
+import categoryApi from "../../api/category";
 function NavBar(props) {
   const [collapse, setCollapse] = useState(false);
   const { user, setUser } = useContext(userContext);
   const [inputSearch, setInputSearch] = useState('')
   const handleSubmit = (e)=>{
-
+    e.preventDefault()
+      FilmApi.searFilm({
+        data:e.target.input.value
+      }).then((res)=>{
+        console.log(res)
+      })
   }
+  const [fillterCountry, setFillterCountry] = useState(null);
+  const [filltercAtegory, setFilltercAtegory] = useState(null);
+  const [isLoading1, setIsLoading1] = useState(true);
+  const [isLoading2, setIsLoading2] = useState(true);
+
+  useEffect(() => {
+    countryApi.getAll().then((res) => {
+      setFillterCountry(res.data);
+      setIsLoading1(false);
+    });
+    categoryApi.getAll().then((res) => {
+      setFilltercAtegory(res.data);
+      setIsLoading2(false);
+    });
+  }, []);
+
   const handleCollapse = () => {
     setCollapse(!collapse);
   };
+
   return (
     <nav className="nav">
       <div className="container">
@@ -40,39 +65,17 @@ function NavBar(props) {
                 </label>
                 <input type="checkbox" id="checkbox1" />
                 <ul className="nav__smenu">
-                  <li className="smenu__item">
-                    <Link className="smenu__link" to="/filter/genres=action">
-                      Phim Hành Động
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link className="smenu__link" to="/filter/genres=horror">
-                      Phim King Dị
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link
-                      className="smenu__link"
-                      to="/filter/genres=science-fiction"
-                    >
-                      Phim Khoa Học Viễn Tưởng
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link className="smenu__link" to="/filter/genres=comedy">
-                      Phim Hài
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link className="smenu__link" to="/filter/genres=drama">
-                      Phim Tâm Lý
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link className="smenu__link" to="/filter/genres=cartoon">
-                      Phim Hoạt Hình
-                    </Link>
-                  </li>
+                  {!isLoading2 &&
+                    filltercAtegory.categories.map((category) => (
+                      <li className="smenu__item" key={category._id}>
+                        <Link
+                          className="smenu__link"
+                          to={`/filter/genres=${category.slug}`}
+                        >
+                          {category.name}
+                        </Link>
+                      </li>
+                    ))}
                 </ul>
               </li>
               <li className="nav__item nav__hover">
@@ -81,44 +84,19 @@ function NavBar(props) {
                 </label>
                 <input type="checkbox" id="checkbox2" />
                 <ul className="nav__smenu">
-                  <li className="smenu__item">
-                    <Link to="/filter/country=vietnam" className="smenu__link">
-                      Phim Việt Nam
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link
-                      to="/filter/country=united-states"
-                      className="smenu__link"
-                    >
-                      Phim Mỹ
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link to="/filter/country=china" className="smenu__link">
-                      Phim Trung Quốc
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link to="/filter/country=korea" className="smenu__link">
-                      Phim Hàn Quốc
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link to="/filter/country=japan" className="smenu__link">
-                      Phim Nhật Bản
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link to="/filter/country=hongkong" className="smenu__link">
-                      Phim Hong Kong
-                    </Link>
-                  </li>
-                  <li className="smenu__item">
-                    <Link to="/filter/country=europe" className="smenu__link">
-                      Phim Âu Mỹ
-                    </Link>
-                  </li>
+                  {!isLoading1 &&
+                    fillterCountry.countries.map((country) => {
+                      return (
+                        <li className="smenu__item" key={country._id}>
+                          <Link
+                            to={`/filter/country=${country.slug}`}
+                            className="smenu__link"
+                          >
+                            {country.name}
+                          </Link>
+                        </li>
+                      );
+                    })}
                 </ul>
               </li>
               <li className="nav__item">
@@ -143,7 +121,7 @@ function NavBar(props) {
               <form onSubmit={handleSubmit} className="nav__input">
                 <input onChange={(e)=>{
                   setInputSearch(e.target.value)
-                }} type="text" placeholder="Search" />
+                }} type="text" name="input" placeholder="Search" />
                 <div className="nav__form--btn">
                   <button type="submit">
                     <i className="fas fa-search"></i>

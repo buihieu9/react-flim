@@ -29,6 +29,7 @@ function VideoPlayer(props) {
   let mouseDown = false;
   let timeOut = null;
   let istrue = true;
+  let innerVideo = useRef(false);
   const { link } = props;
   const [control, setControl] = useState({
     onPlay: true,
@@ -46,6 +47,7 @@ function VideoPlayer(props) {
     });
     const a = control.onPlay ? "play" : "pause";
     video.current[a]();
+    // innerVideo.current = true;
   };
 
   const handleLoading = () => {
@@ -100,7 +102,12 @@ function VideoPlayer(props) {
     });
 
     fullScreen
-      ? document.exitFullscreen()
+      ? document
+          .exitFullscreen()
+          .then()
+          .catch((err) => {
+            boxVideo.current.requestFullscreen();
+          })
       : boxVideo.current.requestFullscreen();
   };
 
@@ -141,8 +148,61 @@ function VideoPlayer(props) {
       cursor.current.classList.remove("test");
     }
   };
+
+  document.onkeydown = (e) => {
+    if (innerVideo.current) {
+      switch (e.key) {
+        case "ArrowRight":
+          hanhdleSkip(20);
+          break;
+
+        case "ArrowLeft":
+          hanhdleSkip(-15);
+          break;
+        case "ArrowUp":
+          if (valueVolum === 100) {
+            return;
+          }
+          setControl({
+            ...control,
+            muted: false,
+          });
+          setValueVolum(valueVolum + 10);
+          video.current.volume = (valueVolum + 10) / 100;
+          e.preventDefault();
+          break;
+        case "ArrowDown":
+          if (valueVolum === 0) {
+            setControl({
+              ...control,
+              muted: true,
+            });
+            return;
+          }
+          setValueVolum(valueVolum - 10);
+          video.current.volume = (valueVolum - 10) / 100;
+          e.preventDefault();
+
+          break;
+        case " ":
+          handleOnplay();
+          e.preventDefault();
+          break;
+        default:
+      }
+    }
+  };
+  document.onmousedown = (e) => {
+    innerVideo.current = false;
+  };
+
   return (
-    <div className="container-player">
+    <div
+      className="container-player"
+      onClick={() => {
+        innerVideo.current = true;
+      }}
+    >
       <div className="box-video" ref={boxVideo} onMouseMove={handeHideCursor}>
         <video
           width="100%"
@@ -153,7 +213,9 @@ function VideoPlayer(props) {
           type="video/mp4"
           muted={muted}
           onTimeUpdate={handleProgress}
-          onClick={handleOnplay}
+          onClick={(e) => {
+            handleOnplay(e);
+          }}
           onLoadStart={() => {
             handleOnplay();
           }}

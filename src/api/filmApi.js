@@ -37,4 +37,20 @@ filmApi.postFilmError = async(params)=>{
         data:params
     })
 }
+filmApi.getTicket = async (params)=>{
+    const url = '/api/product/streamTape/getTicket'
+    return await axiosClient.get(url,{params})
+}
+filmApi.getLink = async (params)=>{
+    const url = '/api/product/streamTape/getlink'
+    return await axiosClient.get(url,{params})
+}
+filmApi.searFilm = async(params)=>{
+    const url = '/api/product/searchFilm'
+    return await axiosClient({
+        method:"POST",
+        url:url,
+        data:params
+    })
+}
 export default filmApi;

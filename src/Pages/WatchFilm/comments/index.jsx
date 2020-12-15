@@ -49,7 +49,6 @@ function Comments(props) {
     }
   }
   useEffect(()=>{
-    console.log(allComments);
   },[allComments])
   return (
     <div className="comments">

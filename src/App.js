@@ -60,7 +60,7 @@ function App() {
     setUnRight(false);
   }, [location]);
   return (
-    <UserProvider value={{ user, setUser }}>
+    <UserProvider value={{ user, setUser } }>
       <div className="app">
         <NavBar className="nav-bar" />
         <div className="app__container">

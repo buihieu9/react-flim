@@ -6,7 +6,7 @@ import Loadding from "../../components/Loadding";
 import FilmApi from "../../api/filmApi";
 import ErrorPage from "../../components/ErrorPage";
 import "./style.scss";
-import UserContext from '../../context/UserContext'
+import UserContext from "../../context/UserContext";
 import VideoPlayer from "../../components/VideoPlayer";
 import filmApi from "../../api/filmApi";
 
@@ -15,12 +15,16 @@ function WatchFilm() {
   const [isOpenFilm, setIsOpenFilm] = useState(false);
   const [film, setFilm] = useState(null);
   const [filmStar, setFilmStar] = useState(null);
+  const [linkFilm, setLinkFilm] = useState(null)
   const [err, setErr] = useState(false);
   const { user, setUser } = useContext(UserContext)
   const { id } = useParams();
+  const overlayRef = useRef()
+  const ticketRef = useRef(null)
   const openInfoRef = useRef();
   const yourVoteItemRef = useRef();
   const InfoContainerRef = useRef();
+  const [disableClick, setDisableClick] = useState(true)
 
   const handleVoteStar = (index) => {
     if (user) {
@@ -37,8 +41,7 @@ function WatchFilm() {
       catch (err) {
         alert(err)
       }
-    }
-    else alert("please login to vote")
+    } else alert("please login to vote");
   };
   const handleOverVoteStar = (index) => {
     let newArr = [...yourVoteItemRef.current.children];
@@ -78,12 +81,17 @@ function WatchFilm() {
     return res
   }
   useEffect(() => {
+    setTimeout(() => {
+    }, 5000)
+  }, [])
+  useEffect(() => {
     async function getFilm() {
       try {
         let res = await FilmApi.getOne(`id=${id}`);
         console.log(res.data);
         setFilm(res.data);
       } catch (err) {
+        console.log(err);
         if (err) setErr(true);
       }
     }
@@ -91,6 +99,22 @@ function WatchFilm() {
   }, [id]);
 
   useEffect(() => {
+    if (film) {
+      console.log(film.streamTapeId);
+      FilmApi.getTicket({
+        key: film.streamTapeId
+      }).then((res) => {
+        if (res.data.status === 200) {
+          console.log(res.data);
+          ticketRef.current = res.data.result.ticket
+          setDisableClick(false)
+        }
+        else if (res.data.status === 400) {
+          alert('Sorry we cant get link this Film')
+        }
+      })
+    }
+
     if (film) {
       let vote = [];
       for (let i = 0; i < 10; i++) {
@@ -115,12 +139,33 @@ function WatchFilm() {
         <div className="watchFilm">
           {!isOpenFilm ? (
             <div className="watchFilm__video">
-              <img src={film.largerImg} />
+              <img src={film.largerImg} alt="logo" />
               <div
                 onClick={() => {
-                  setIsOpenFilm(true);
-                }}
-                className="watchFilm__video__overlay"
+                  if (disableClick) {
+                    alert("you have to wait 5 seconds to get link")
+                  } else {
+                    if (film.streamTapeId !== "null" && ticketRef.current !== null) {
+                      console.log(film.streamTapeId);
+                      console.log(ticketRef.current);
+                      try {
+                        filmApi.getLink({
+                          ticket: ticketRef.current,
+                          key: film.streamTapeId
+                        }).then((res) => {
+                          setLinkFilm(res.data.result.url)
+                        })
+                      } catch (err) {
+                        console.log(err);
+                      }
+                      setIsOpenFilm(true);
+
+                    } else alert('sorry this film is not available now')
+                  }
+                }
+
+                }
+                ref={overlayRef} className="watchFilm__video__overlay"
               >
                 <div className="watchFilm__video__overlay__playIcon">
                   <svg
@@ -149,7 +194,7 @@ function WatchFilm() {
             </div>
           ) : (
               <div className="watchFilm__video">
-                <VideoPlayer link={film.url} />
+                {linkFilm && <VideoPlayer link={linkFilm} />}
               </div>
             )}
           <div className="watchFilm__main">
@@ -163,7 +208,7 @@ function WatchFilm() {
             <div className="watchFilm__engName">
               <p>{film.ename}</p>
               <div className="watchFilm__engName__favorite">
-                <i class="fas fa-heart"></i>
+                <i className="fas fa-heart"></i>
                 <p>Favorite film</p>
               </div>
             </div>
@@ -178,12 +223,12 @@ function WatchFilm() {
                 <div>( {film.voteLength} voted )</div>
               </div>
               <div className="watchFilm__vote__left">
-                <div onClick={()=>{
-                  if(user){
+                <div onClick={() => {
+                  if (user) {
                     filmApi.postFilmError({
-                      id:id
-                    }).then((res)=>{
-                      if(res.status === 200) alert("report film successfully")
+                      id: id
+                    }).then((res) => {
+                      if (res.status === 200) alert("report film successfully")
                       else alert('something wrong')
                     })
                   }
