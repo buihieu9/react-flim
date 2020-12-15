@@ -5,6 +5,7 @@ import filmApi from "../../api/filmApi";
 
 function Home(props) {
   const [newFilms, setNewFilms] = useState(null);
+  const [actionFilms, setActionFilms] = useState(null);
   useEffect(() => {
     filmApi
       .getAll({
@@ -12,16 +13,25 @@ function Home(props) {
         limit: 10,
       })
       .then((res) => {
-        console.log(res.data.product);
         setNewFilms(res.data.product);
+      });
+
+    filmApi
+      .getAll({
+        category: "5fd82f209644f00e2ee9b59c",
+        limit: 10,
+      })
+      .then((res) => {
+        setActionFilms(res.data.product);
       });
   }, []);
   return (
     <div>
-      {newFilms && (
+      {newFilms && actionFilms && (
         <>
           <SlideShow slides={newFilms} />
           <ListFilmContainer films={newFilms} title="New Films" />
+          <ListFilmContainer films={actionFilms} title="Action Films" />
         </>
       )}
     </div>

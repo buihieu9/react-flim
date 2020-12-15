@@ -15,6 +15,10 @@
     align-items: center;
     .logo {
         margin-top: 2rem;
+        width: 18rem;
+        img {
+            width: 100%;
+        }
     }
     .btn {
         text-align: center;

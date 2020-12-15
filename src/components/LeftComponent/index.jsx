@@ -1,27 +1,29 @@
 import React, { useEffect, useState } from "react";
 import HotFilm from "../HotFilm";
-import Conversation from '../Conversation'
-
+import Conversation from "../Conversation";
+import filmApi from "../../api/filmApi";
 import "./style.scss";
 
-function LeftComponent(props) {
+function LeftComponent() {
   // const [data, setData] = useState([]);
-  // const [films, setFilms] = useState([]);
-  const { films } = props;
+  const [films, setFilms] = useState(null);
+  // const { films } = props;
 
-  //   useEffect(() => {
-  //     fetch("https://5f8a739718c33c0016b31771.mockapi.io/Film")
-  //       .then((res) => res.json())
-  //       .then((res) => {
-  //         // setData(res);
-  //         setFilms(res.slice(0, 6));
-  //       });
-  //   }, []);
+  useEffect(() => {
+    filmApi
+      .getAll({
+        sort: "vote",
+        limit: 10,
+      })
+      .then((res) => {
+        setFilms(res.data.product);
+      });
+  }, []);
   return (
     <div className="LeftComponent">
-      <Conversation/>
+      <Conversation />
       <div className="LeftComponent__topFilms">
-        <HotFilm films={films} title="Hot Films" />
+        {films && <HotFilm films={films} title="Hot Films" />}
       </div>
     </div>
   );

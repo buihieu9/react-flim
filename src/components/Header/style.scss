@@ -75,8 +75,11 @@ html {
         padding: 2rem ;
     }
     &__logo{
+        width: 18rem;
+        padding-bottom: 5px ;
         img {
-            width: 14rem;
+            width: 70%;
+
         }
     }
     &__hamburger{
@@ -277,7 +280,8 @@ label {
         }
         &__logo{
             img {
-                width: 16rem;
+                width: 50%;
+
             }
         }
         &__collapse{
