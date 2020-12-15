@@ -51,6 +51,10 @@
         &__loading{
             display: flex;
             justify-content: center;
+            padding-bottom: 10px;
+            span{
+                cursor: pointer;
+            }
         }
     }
 }

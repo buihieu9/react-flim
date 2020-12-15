@@ -5,11 +5,11 @@ function Film(props) {
   const { film } = props;
   return (
     <div className="listFilm__item">
-      <Link to={`/watch-film/${film.id}`}>
+      <Link to={`/watch-film/${film._id}`}>
         <div className="a123">
           <div
             style={{
-              backgroundImage: `url('${film.image}')`,
+              backgroundImage: `url('${film.img}')`,
               backgroundSize: "cover",
             }}
             className="listFilm__item__img"
@@ -20,13 +20,13 @@ function Film(props) {
             </div>
             <div className="listFilm__item__star">
               <i className="fas fa-star">
-                <p>9.1</p>
+                <p>{film.averageVote}</p>
               </i>
             </div>
           </div>
           <div className="listFilm__item__info">
-            <p>{film.vieName}</p>
-            <p>{film.engName}</p>
+            <p>{film.name}</p>
+            <p>{film.ename}</p>
           </div>
         </div>
       </Link>

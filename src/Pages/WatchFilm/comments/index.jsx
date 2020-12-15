@@ -1,30 +1,70 @@
 import React, { useEffect, useState } from "react";
+import filmApi from "../../../api/filmApi";
+import Loadding from "../../../components/Loadding";
 import "./style.scss";
 function Comments(props) {
-  const { comments } = props;
-
+  const { comments = [],user,filmId } = props;
+  const [loadding,setLoadding] = useState(false)
   const [allComments,setAllcomment] = useState([])
 
   useEffect(()=>{
-    setAllcomment(comments)
+    try{
+      filmApi.getComments({
+        id:filmId,
+        limit:5
+      }).then((res)=>{
+        console.log(res);
+        if(res.status === 200){
+          setAllcomment(res.data.comments)
+        }
+      })
+    }catch(err){
+      alert(err)
+    }
   },[])
 
   const handleSubmit = (e)=>{
     e.preventDefault()
-    setAllcomment([...allComments,{
-      avatar:"https://cf.shopee.vn/file/6705ccbb67416a1dd07e00ec1eddd49b",
-      userName:"dohainam",
-      comment:e.target.inputComment.value
-    }])
+    try{
+      filmApi.postComment({
+        id:filmId,
+        userId:user._id,
+        comment:e.target.inputComment.value
+      }).then((res)=>{
+        if(res.status===200){
+          setAllcomment([{
+            comment:e.target.inputComment.value,
+            user:[
+              {
+                avatar:user.avatar,
+                userName:user.userName,
+              }
+            ]
+          },...allComments])
+        }
+      })
+    }catch(err){
+      alert(err)
+    }
+    e.target.inputComment.value=""
   }
   useEffect(()=>{
     console.log(allComments);
   },[allComments])
   return (
     <div className="comments">
-      <form onSubmit={handleSubmit} className="comments__form">
+      <form onSubmit={(e)=>{
+        e.preventDefault()
+        if(user){
+          handleSubmit(e)
+        }
+        else {
+          e.target.inputComment.value=""
+          alert('you have to login to comment')
+        }
+      }} className="comments__form">
         <img
-          src="https://cf.shopee.vn/file/6705ccbb67416a1dd07e00ec1eddd49b"
+          src={user?user.avatar:'https://firebasestorage.googleapis.com/v0/b/react-upload-image-d14cb.appspot.com/o/images%2Ficon-user.svg?alt=media&token=a31c548c-bc91-4cee-b861-80ecf0128d58'}
           alt="logo"
         />
         <input
@@ -38,20 +78,37 @@ function Comments(props) {
       </form>
       <div className="comments__listComment">
         <ul className="comments__listComment__container">
-          {allComments.map((item) => (
-            <li>
+          {allComments.map((item,index) => (
+            <li key={index}>
               <div className="comments__listComment__container__img">
-                <img src={item.avatar} alt="logo" />
+                <img src={item.user[0].avatar} alt="logo" />
               </div>
               <div className="comments__listComment__container__info">
-                <p>{item.userName}</p>
+                <p>{item.user[0].userName}</p>
                 <p>{item.comment}</p>
               </div>
             </li>
           ))}
         </ul>
         <div className="comments__listComment__loading">
-                <span>See More...</span>
+                <span onClick={()=>{
+                  try{
+                    setLoadding(true)
+                    filmApi.getComments({
+                      id:filmId,
+                      limit:allComments.length+5
+                    }).then((res)=>{
+                      console.log(res);
+                      if(res.status === 200){
+                        setAllcomment(res.data.comments)
+                        setLoadding(false)
+                      }
+                    })
+                  }catch(err){
+                    alert(err)
+                    setLoadding(false)
+                  }
+                }}>{loadding?<Loadding/>:'See More...'}</span>
         </div>
       </div>
     </div>

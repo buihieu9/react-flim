@@ -2,15 +2,15 @@ const { default: axiosClient } = require("./axiosClient")
 const userApi = {}
 
 userApi.signUp = async (params) => {
-    const url = '/auth/sign-up'
+    const url = '/api/signup'
     return await axiosClient.post(url,params)
 }
 userApi.signIn = async (params) => {
-    const url= `/auth/sign-in`
+    const url= `/api/signin`
     return await axiosClient.post(url,params)
 }
 userApi.signInAfterReload = async()=>{
-    const url= `/auth/me`
+    const url= `/api/me`
     return await axiosClient.post(url)
 }
 export default userApi

@@ -145,7 +145,7 @@ function NavBar(props) {
                         <span
                           className="user-link"
                           onClick={() => {
-                            localStorage.removeItem("jwt");
+                            localStorage.removeItem("token");
                             window.location.reload();
                           }}
                         >

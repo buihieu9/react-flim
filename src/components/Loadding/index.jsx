@@ -1,9 +1,12 @@
 import React from 'react'
 import './style.scss'
-function Loadding() {
+function Loadding(props) {
+    const {fonsize} = props
     return (
-        <div className="loadding">
-            <i className="fas fa-spinner"></i>
+        <div  className="loadding">
+            <i style={{
+            fontSize: fonsize&&fonsize
+        }} className="fas fa-spinner"></i>
         </div>
     )
 }

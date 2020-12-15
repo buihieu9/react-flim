@@ -3,6 +3,7 @@ import Loadding from "../../../components/Loadding";
 import "./style.scss";
 function SlideShow(props) {
   const { slides } = props;
+  console.log(slides);
   const slideShowRef = useRef();
   let [count, setCount] = useState(0);
   let runSlideShowRef = useRef();
@@ -63,9 +64,9 @@ function SlideShow(props) {
         {slides.length?
           slides.map((item) => {
           return (
-            <div key={item.id} className="home__slideShow__item">
+            <div key={item._id} className="home__slideShow__item">
               <a href="/">
-                <img src={item.largeImg} alt={item.engName} />
+                <img src={item.largerImg} alt={item.eName} />
               </a>
             </div>
           );
@@ -83,7 +84,7 @@ function SlideShow(props) {
         <ul>
           {slides.map((item, index) => {
             return (
-              <li className={index} key={item.id}>
+              <li className={index} key={item._id}>
                 <span
                   style={{
                     transform: count === index && 'scale(1.1)',

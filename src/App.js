@@ -30,16 +30,19 @@ function App() {
         setData(res);
         setFilms(res.slice(0, 7));
       });
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("token");
     if (token) {
+      console.log('ok2');
       userApi
         .signInAfterReload()
         .then((res) => {
           setUser(res.data);
-          console.log(res.data);
+          console.log('ok');
+          console.log(res);
         })
         .catch((err) => {
-          localStorage.removeItem("jwt");
+          console.log('loi');
+          localStorage.removeItem("token");
         });
     }
   }, []);

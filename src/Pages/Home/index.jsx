@@ -1,18 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ListFilmContainer from "./ListFilmContainer";
 import SlideShow from "./SlideShow";
 import filmApi from "../../api/filmApi";
+
 function Home(props) {
-  const { films } = props;
+  const [newFilms, setNewFilms] = useState(null);
   useEffect(() => {
-    filmApi.getAll({ sort: "date" }).then((res) => {
-      console.log(res);
-    });
+    filmApi
+      .getAll({
+        sort: "date",
+        limit: 10,
+      })
+      .then((res) => {
+        console.log(res.data.product);
+        setNewFilms(res.data.product);
+      });
   }, []);
   return (
     <div>
-      <SlideShow slides={films} />
-      <ListFilmContainer title="New Films" />
+      {newFilms && (
+        <>
+          <SlideShow slides={newFilms} />
+          <ListFilmContainer films={newFilms} title="New Films" />
+        </>
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Comments from "./comments";
@@ -6,7 +6,9 @@ import Loadding from "../../components/Loadding";
 import FilmApi from "../../api/filmApi";
 import ErrorPage from "../../components/ErrorPage";
 import "./style.scss";
+import UserContext from "../../context/UserContext";
 import VideoPlayer from "../../components/VideoPlayer";
+import filmApi from "../../api/filmApi";
 
 function WatchFilm() {
   const [isOpenFilmInfo, setIsOpenFilmInfo] = useState(true);
@@ -14,12 +16,30 @@ function WatchFilm() {
   const [film, setFilm] = useState(null);
   const [filmStar, setFilmStar] = useState(null);
   const [err, setErr] = useState(false);
+  const { user, setUser } = useContext(UserContext);
   const { id } = useParams();
   const openInfoRef = useRef();
   const yourVoteItemRef = useRef();
   const InfoContainerRef = useRef();
 
-  const handleVoteStar = (index) => {};
+  const handleVoteStar = (index) => {
+    if (user) {
+      console.log(index);
+      try {
+        filmApi
+          .voteFilm({
+            idFilm: id,
+            idUser: user._id,
+            vote: index,
+          })
+          .then((res) => {
+            alert(res.data.message);
+          });
+      } catch (err) {
+        alert(err);
+      }
+    } else alert("please login to vote");
+  };
   const handleOverVoteStar = (index) => {
     let newArr = [...yourVoteItemRef.current.children];
     newArr.forEach((item, i) => {
@@ -56,9 +76,7 @@ function WatchFilm() {
   useEffect(() => {
     async function getFilm() {
       try {
-        let res = await FilmApi.getOne({
-          id: 95840,
-        });
+        let res = await FilmApi.getOne(`id=${id}`);
         console.log(res.data);
         setFilm(res.data);
       } catch (err) {
@@ -72,7 +90,7 @@ function WatchFilm() {
     if (film) {
       let vote = [];
       for (let i = 0; i < 10; i++) {
-        if (i < parseInt(film.vote))
+        if (i < parseInt(film.averageVote))
           vote.push(
             <i
               style={{
@@ -93,7 +111,7 @@ function WatchFilm() {
         <div className="watchFilm">
           {!isOpenFilm ? (
             <div className="watchFilm__video">
-              <img src={film.largeImage} alt="logo" />
+              <img src={film.largerImg} alt="logo" />
               <div
                 onClick={() => {
                   setIsOpenFilm(true);
@@ -132,27 +150,27 @@ function WatchFilm() {
           )}
           <div className="watchFilm__main">
             <div className="watchFilm__vieName">
-              <p>{film.vieName}</p>
+              <p>{film.name}</p>
               <select>
                 <option value="sv1">Server 1</option>
                 <option value="sv2">Server 2</option>
               </select>
             </div>
             <div className="watchFilm__engName">
-              <p>{film.engName}</p>
+              <p>{film.ename}</p>
               <div className="watchFilm__engName__error">
                 <i className="fas fa-exclamation-triangle"></i>
                 <p>Film Error</p>
               </div>
             </div>
             <div className="watchFilm__vote">
-              <p>Voted: {film.vote}</p>
+              <p>Voted: {film.averageVote}</p>
               <div className="watchFilm__vote__star">
                 {filmStar
                   ? filmStar.map((item, index) => <div key={index}>{item}</div>)
                   : ""}
               </div>
-              <div>( {film.vote.length} voted )</div>
+              <div>( {film.voteLength} voted )</div>
             </div>
             <button className="watchFilm__trailer">
               Trailer <i className="fas fa-caret-right"></i>
@@ -222,13 +240,13 @@ function WatchFilm() {
                 </li>
                 <li>
                   Genres:{" "}
-                  {film.genres.map((item, index) => {
-                    if (index !== film.genres.length - 1) {
-                      return <span key={index}>{item},</span>;
-                    } else return <span key={index}>{item}.</span>;
+                  {film.categories.map((item, index) => {
+                    if (index !== film.categories.length - 1) {
+                      return <span key={index}>{item.name},</span>;
+                    } else return <span key={index}>{item.name}.</span>;
                   })}
                 </li>
-                <li>Country: {film.country}</li>
+                <li>Country: {film.country[0].name}</li>
               </ul>
             </div>
           </div>
@@ -239,7 +257,7 @@ function WatchFilm() {
             </div>
           </div>
           <div className="watchFilm__comments">
-            <Comments comments={film.comment} />
+            <Comments user={user} filmId={id} />
           </div>
         </div>
       )}

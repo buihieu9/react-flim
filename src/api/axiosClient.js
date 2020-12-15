@@ -5,8 +5,8 @@ const axiosClient = axios.create(
     {
         baseURL:process.env.REACT_APP_API_URL,
         headers:{
-            'content-type': 'application/json',
-            "authorization": `bearer ${localStorage.getItem('jwt')}`
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${localStorage.getItem('token')}`
         },
         paramsSerializer: params => {
           return queryString.stringify(params)

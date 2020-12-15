@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ListFilm from "../../../components/ListFilm";
+
 import Loadding from "../../../components/Loadding";
 import "./style.scss";
 function ListFilmContainer(props) {
-  const { title } = props;
-  const [films, setFilms] = useState([]);
-  useEffect(() => {
-    fetch("https://5f8a739718c33c0016b31771.mockapi.io/Film")
-      .then((res) => res.json())
-      .then((data) => {
-        setFilms(data.slice(0, 10));
-      });
-  }, []);
+  const { title, films } = props;
+  useEffect(() => {}, []);
   return (
     <div className="ListFilmContainer">
       <div className="ListFilmContainer__title">
