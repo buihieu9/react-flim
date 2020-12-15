@@ -8,9 +8,9 @@ function Footer(props) {
       <footer class="footer">
         <div class="container">
           <div class="row-footer">
-            <div class="column-footer">
+            <div class="column-footer madeby">
               <h3 class="footer__heading">Made by</h3>
-              <ul class="footer-list">
+              <ul class="footer-list made-by">
                 <li class="footer-item">
                   <Link to="/" class="footer-item__link">
                     Bùi Văn Hiếu
@@ -63,7 +63,7 @@ function Footer(props) {
                 </li>
               </ul>
             </div>
-            <div class="column-footer">
+            <div class="column-footer contact">
               <h3 class="footer__heading">Contact with us</h3>
               <ul class="footer-list">
                 <li class="footer-item">

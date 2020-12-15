@@ -41,7 +41,6 @@ function Conversation() {
     return tbody;
   };
   const handleOnchange = (e) => {
-    console.log(e.target.files[0]);
     if (e.target.files[0] !== undefined) {
       console.log("zoday");
       imageUploadedRef.current.push(e.target.files[0]);
@@ -210,8 +209,7 @@ function Conversation() {
               .then((res) => {
                 if (res.status === 200) {
                   let arr = [];
-                  console.log(res);
-                  res.data.forEach((item) => {
+                  res.data.data.forEach((item) => {
                     if (item.isImg) arr.unshift(createChat(item, item.isImg));
                     else arr.unshift(createChat(item, item.isImg));
                   });
