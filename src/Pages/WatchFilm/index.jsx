@@ -93,7 +93,7 @@ function WatchFilm() {
         <div className="watchFilm">
           {!isOpenFilm ? (
             <div className="watchFilm__video">
-              <img src={film.largeImage} />
+              <img src={film.largeImage} alt="logo" />
               <div
                 onClick={() => {
                   setIsOpenFilm(true);
