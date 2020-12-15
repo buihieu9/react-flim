@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import userContext from "../../context/UserContext";
 import FilmApi from '../../api/filmApi'
 import "../../style/reset.css";
@@ -7,16 +7,20 @@ import "./style.scss";
 import countryApi from "../../api/country";
 import categoryApi from "../../api/category";
 function NavBar(props) {
+  const { submit } = props
   const [collapse, setCollapse] = useState(false);
   const { user, setUser } = useContext(userContext);
   const [inputSearch, setInputSearch] = useState('')
-  const handleSubmit = (e)=>{
+  const history = useHistory()
+  const handleSubmit = (e) => {
     e.preventDefault()
-      FilmApi.searFilm({
-        data:e.target.input.value
-      }).then((res)=>{
-        console.log(res)
-      })
+    FilmApi.searFilm({
+      data: e.target.input.value
+    }).then((res) => {
+      submit(res.data)
+      history.push('/search')
+      e.target.input.value = ""
+    })
   }
   const [fillterCountry, setFillterCountry] = useState(null);
   const [filltercAtegory, setFilltercAtegory] = useState(null);
@@ -120,7 +124,7 @@ function NavBar(props) {
           <div className="col nav__search">
             <div className="nav__form">
               <form onSubmit={handleSubmit} className="nav__input">
-                <input onChange={(e)=>{
+                <input autoComplete="off" onChange={(e) => {
                   setInputSearch(e.target.value)
                 }} type="text" name="input" placeholder="Search" />
                 <div className="nav__form--btn">
@@ -168,10 +172,10 @@ function NavBar(props) {
                     </ul>
                   </>
                 ) : (
-                  <NavLink className="btn-login" to="/auth/sign-in">
-                    Login
-                  </NavLink>
-                )}
+                    <NavLink className="btn-login" to="/auth/sign-in">
+                      Login
+                    </NavLink>
+                  )}
               </div>
             </div>
           </div>

@@ -98,7 +98,7 @@ function Conversation() {
           .put(imageUploadedRef.current[i]);
         uploadTask.on(
           "state_changed",
-          (snapshot) => {},
+          (snapshot) => { },
           (err) => {
             console.log(err);
           },
@@ -211,7 +211,7 @@ function Conversation() {
                 if (res.status === 200) {
                   let arr = [];
                   console.log(res);
-                  res.data.forEach((item) => {
+                  res.data.data.forEach((item) => {
                     if (item.isImg) arr.unshift(createChat(item, item.isImg));
                     else arr.unshift(createChat(item, item.isImg));
                   });

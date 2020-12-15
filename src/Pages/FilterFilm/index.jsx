@@ -6,6 +6,7 @@ import filmApi from "../../api/filmApi";
 
 import "./style.scss";
 function FilterFilm(props) {
+  const {searchFilm} = props
   let { query } = useParams();
   const [genres, setGenres] = useState(null);
   const [country, setCountry] = useState(null);
@@ -21,6 +22,7 @@ function FilterFilm(props) {
   });
 
   useEffect(() => {
+   if(query!== undefined){
     let arrQuery = query.split("&");
     arrQuery.forEach((item) => {
       let a = item.split("=");
@@ -29,6 +31,7 @@ function FilterFilm(props) {
       if (a[0] === "year") setYear(a[1]);
       if (a[0] === "sort") setSort(a[1]);
     });
+   }
     return () => {
       console.log("removed");
       setCountry(null);
@@ -50,6 +53,12 @@ function FilterFilm(props) {
     // if (e.target.name === "country") setCountry(e.target.value);
     // if (e.target.name === "year") setYear(e.target.value);
   };
+  useEffect(()=>{
+    if(searchFilm!== undefined){
+      console.log(searchFilm);
+      setListFilm(searchFilm)
+    }
+  },[])
   useEffect(() => {
     country &&
       filmApi.getAll({ country: country }).then((res) => {

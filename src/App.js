@@ -23,6 +23,7 @@ function App() {
   const [unRight, setUnRight] = useState(false);
   const [user, setUser] = useState(null);
   const location = useLocation();
+  const [submit,setSubmit] = useState(null)
 
   useEffect(() => {
     fetch("https://5f8a739718c33c0016b31771.mockapi.io/Film")
@@ -47,6 +48,9 @@ function App() {
         });
     }
   }, []);
+  useEffect(()=>{
+    console.log(submit)
+  },[submit])
   useEffect(() => {
     if (
       location.pathname === "/auth/sign-in" ||
@@ -63,7 +67,9 @@ function App() {
   return (
     <UserProvider value={{ user, setUser } }>
       <div className="app">
-        <NavBar className="nav-bar" />
+        <NavBar submit={(data)=>{
+          setSubmit(data)
+        }} className="nav-bar" />
         <div className="app__container">
           <div
             className="app__container__left"
@@ -73,6 +79,9 @@ function App() {
               <Route path="/auth" component={Auth} />
               <Route path="/watch-film/:id">
                 <WatchFilm />
+              </Route>
+              <Route exact path="/search">
+              <FilterFilm  searchFilm={submit} />
               </Route>
               <Route path="/filter/:query">
                 <FilterFilm films={films} />
