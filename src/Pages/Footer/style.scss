@@ -60,3 +60,30 @@
     padding: 5px 0;
     background: #000000;
   }
+
+
+  @media (max-width: 37.5em) {
+    .row-footer {
+      flex-direction: column;
+    }
+    .contact {
+      display: none;
+    }
+    .column-footer {
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+  .madeby {
+      display: none;
+    }
+  }
+
+
+  @media (max-width: 56.25em)
+{
+  .row-footer {
+    padding: 0 1rem;
+  }
+
+}
