@@ -33,11 +33,11 @@ function Signin(props) {
         });
         console.log(response.data);
 
-        localStorage.setItem("jwt", response.data.accessToken);
+        localStorage.setItem("token", response.data.token);
         setUser(response.data.user);
       } catch (err) {
         console.log(err.response);
-        setErr(err.response.data);
+        setErr(err.response.data.message);
       }
     }
   };

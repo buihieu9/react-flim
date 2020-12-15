@@ -8,7 +8,7 @@ function ListFilm(props) {
         <div className="listFilm">
             {
                 films.map((item)=><Film 
-                 film={item} key={item.id}
+                 film={item} key={item._id}
                 />)
             }
         </div>
