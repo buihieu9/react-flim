@@ -4,8 +4,8 @@ import SlideShow from "./SlideShow";
 import filmApi from "../../api/filmApi";
 
 function Home(props) {
-  const [newFilms, setNewFilms] = useState(null);
-  const [actionFilms, setActionFilms] = useState(null);
+  const [newFilms, setNewFilms] = useState([]);
+  const [actionFilms, setActionFilms] = useState([]);
   useEffect(() => {
     filmApi
       .getAll({

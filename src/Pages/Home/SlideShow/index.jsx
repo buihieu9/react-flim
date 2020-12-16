@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import Loadding from "../../../components/Loadding";
 import "./style.scss";
 function SlideShow(props) {
@@ -65,9 +66,9 @@ function SlideShow(props) {
           slides.map((item) => {
           return (
             <div key={item._id} className="home__slideShow__item">
-              <a href="/">
-                <img src={item.largerImg} alt={item.eName} />
-              </a>
+              <Link to={`/watch-film/${item._id}`}>
+                <img src={item.largerImg} alt={item.ename} />
+                </Link>
             </div>
           );
         }):<Loadding/>

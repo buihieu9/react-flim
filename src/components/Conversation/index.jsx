@@ -6,7 +6,7 @@ import userContext from "../../context/UserContext";
 import io from "socket.io-client";
 import conversationApi from "../../api/conversationApi";
 import Loadding from "../Loadding";
-const socket = io("http://192.168.0.104:2000", { transports: ["websocket"] });
+const socket = io(process.env.REACT_APP_API_URL, { transports: ["websocket"] });
 
 function Conversation() {
   const [imageUrl, setImageUrl] = useState([]);
@@ -88,8 +88,8 @@ function Conversation() {
     );
   };
   const handleSubmit = (e) => {
-    let Arr = [...currentChats];
     e.preventDefault();
+    let Arr = [...currentChats];
     if (imageUploadedRef.current.length > 0) {
       for (let i = 0; i < imageUploadedRef.current.length; i++) {
         const uploadTask = storage
@@ -248,6 +248,7 @@ function Conversation() {
         </div>
         <form
           onSubmit={(e) => {
+            e.preventDefault()
             if (user) {
               handleSubmit(e);
             } else alert("please SignIn");

@@ -32,6 +32,10 @@ function FilterFilm(props) {
       if (a[0] === "sort") setSort(a[1]);
     });
    }
+   if(searchFilm!== undefined){
+    console.log(searchFilm);
+    setListFilm(searchFilm)
+  }
     return () => {
       console.log("removed");
       setCountry(null);
@@ -54,11 +58,12 @@ function FilterFilm(props) {
     // if (e.target.name === "year") setYear(e.target.value);
   };
   useEffect(()=>{
+    console.log(searchFilm);
     if(searchFilm!== undefined){
       console.log(searchFilm);
       setListFilm(searchFilm)
     }
-  },[])
+  },[searchFilm])
   useEffect(() => {
     country &&
       filmApi.getAll({ country: country }).then((res) => {
@@ -77,6 +82,7 @@ function FilterFilm(props) {
         category: fillter.genres,
         country: fillter.country,
         year: fillter.year,
+        sort: fillter.sort
       })
       .then((res) => {
         console.log(res.data.product);
@@ -142,11 +148,11 @@ function FilterFilm(props) {
                 <select
                   name="sort"
                   onChange={handleOnchange}
-                  value={sort ? sort : "default"}
+                  value={fillter.sort ? fillter.sort : "default"}
                 >
                   <option value="default">Sort</option>
-                  <option value="votes">Votes</option>
-                  <option value="date-update">Date update</option>
+                  <option value="vote">Votes</option>
+                  <option value="date">Date update</option>
                 </select>
                 <button type="submit">Filter Film</button>
               </form>
