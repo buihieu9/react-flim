@@ -3,7 +3,7 @@ import queryString from 'query-string'
 
 const axiosClient = axios.create(
     {
-        baseURL:process.env.REACT_APP_API_URL,
+        baseURL:"localhost:2000//",
         headers:{
             'Content-Type': 'application/json',
             "Authorization": `Bearer ${localStorage.getItem('token')}`
