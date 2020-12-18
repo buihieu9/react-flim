@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/react-flim/static/css/main.24833ebf.chunk.css",
+    "main.js": "/react-flim/static/js/main.4f078ba2.chunk.js",
+    "main.js.map": "/react-flim/static/js/main.4f078ba2.chunk.js.map",
+    "runtime-main.js": "/react-flim/static/js/runtime-main.e6ed1ae9.js",
+    "runtime-main.js.map": "/react-flim/static/js/runtime-main.e6ed1ae9.js.map",
+    "static/js/2.0ca382b1.chunk.js": "/react-flim/static/js/2.0ca382b1.chunk.js",
+    "static/js/2.0ca382b1.chunk.js.map": "/react-flim/static/js/2.0ca382b1.chunk.js.map",
+    "static/js/3.83b3592d.chunk.js": "/react-flim/static/js/3.83b3592d.chunk.js",
+    "static/js/3.83b3592d.chunk.js.map": "/react-flim/static/js/3.83b3592d.chunk.js.map",
+    "index.html": "/react-flim/index.html",
+    "static/css/main.24833ebf.chunk.css.map": "/react-flim/static/css/main.24833ebf.chunk.css.map",
+    "static/js/2.0ca382b1.chunk.js.LICENSE.txt": "/react-flim/static/js/2.0ca382b1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e6ed1ae9.js",
+    "static/js/2.0ca382b1.chunk.js",
+    "static/css/main.24833ebf.chunk.css",
+    "static/js/main.4f078ba2.chunk.js"
+  ]
+}
