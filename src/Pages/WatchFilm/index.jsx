@@ -9,6 +9,7 @@ import "./style.scss";
 import UserContext from "../../context/UserContext";
 import VideoPlayer from "../../components/VideoPlayer";
 import filmApi from "../../api/filmApi";
+import Advertisement from "./advertisement"
 
 function WatchFilm() {
   const [isOpenFilmInfo, setIsOpenFilmInfo] = useState(true);
@@ -109,7 +110,7 @@ function WatchFilm() {
           ticketRef.current = res.data.result.ticket
           setDisableClick(false)
         }
-        else if (res.data.status === 400) {
+        else if (res.data.status === 500||res.data.status === 400) {
           alert('Sorry we cant get link this Film')
         }
       })
@@ -140,10 +141,13 @@ function WatchFilm() {
           {!isOpenFilm ? (
             <div className="watchFilm__video">
               <img src={film.largerImg} alt="logo" />
-              <div
+              {
+                disableClick
+                ?<Advertisement/>
+                :<div
                 onClick={() => {
                   if (disableClick) {
-                    alert("you have to wait 5 seconds to get link")
+                    
                   } else {
                     if (film.streamTapeId !== "null" && ticketRef.current !== null) {
                       console.log(film.streamTapeId);
@@ -167,7 +171,7 @@ function WatchFilm() {
                 }
                 ref={overlayRef} className="watchFilm__video__overlay"
               >
-                <div className="watchFilm__video__overlay__playIcon">
+                  <div className="watchFilm__video__overlay__playIcon">
                   <svg
                     x="0px"
                     y="0px"
@@ -191,7 +195,8 @@ function WatchFilm() {
                   </svg>
                 </div>
               </div>
-            </div>
+              }
+              </div>    
           ) : (
               <div className="watchFilm__video">
                 {linkFilm && <VideoPlayer link={linkFilm} />}
