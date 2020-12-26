@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Sat Dec 26 2020 14:03:26 GMT+0700 (Indochina Time)
+------------------------------------------------------
+
+Modified files:
+* src/components/Input/index.jsx
+
+
+Created files:
+* .autogit/logs/log-23-11-2020-22-19-43.txt
+
+
+Deleted files:
+
+
+Renamed files:
