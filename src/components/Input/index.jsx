@@ -14,7 +14,7 @@ function Input(props) {
   };
 
   return (
-    <div className="input">
+    <div className="input-box">
       <input
         autoComplete="off"
         name={name}
