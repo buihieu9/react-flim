@@ -1,0 +1,16 @@
+-------------------- Auto-Git Log --------------------
+		Sun Jan 10 2021 23:54:55 GMT+0700 (Indochina Time)
+------------------------------------------------------
+
+Modified files:
+* src/Pages/Home/index.jsx
+
+
+Created files:
+* .autogit/logs/log-10-0-2021-23-24-45.txt
+
+
+Deleted files:
+
+
+Renamed files:
