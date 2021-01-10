@@ -14,6 +14,7 @@ function Home(props) {
       })
       .then((res) => {
         setNewFilms(res.data.product);
+        console.log(res.data)
       });
 
     filmApi
